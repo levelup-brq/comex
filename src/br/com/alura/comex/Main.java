@@ -6,6 +6,7 @@ public class Main {
 
   public static void main(String[] args) {
     ArrayList<Pedido> pedidos = ProcessadorDeCsv.processaArquivo("pedidos.csv");
-    System.out.println(pedidos);
+    String numeroDePedido = String.format("Número de pedidos: %s", pedidos.size());
+    System.out.println(numeroDePedido);
   }
 }
