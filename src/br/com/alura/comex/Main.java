@@ -8,5 +8,10 @@ public class Main {
     ArrayList<Pedido> pedidos = ProcessadorDeCsv.processaArquivo("pedidos.csv");
     String numeroDePedido = String.format("Número de pedidos: %s", pedidos.size());
     System.out.println(numeroDePedido);
+
+    String primeiroPedido = String.format("Primeiro pedido: %s", pedidos.get(0));
+    String ultimoPedido = String.format("Ultimo pedido: %s", pedidos.get(pedidos.size() - 1));
+    System.out.println(primeiroPedido);
+    System.out.println(ultimoPedido);
   }
 }
