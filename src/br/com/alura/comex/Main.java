@@ -13,5 +13,15 @@ public class Main {
     String ultimoPedido = String.format("Ultimo pedido: %s", pedidos.get(pedidos.size() - 1));
     System.out.println(primeiroPedido);
     System.out.println(ultimoPedido);
+
+    ArrayList<String> listaDeClientes = new ArrayList<>();
+    for (Pedido pedido : pedidos) {
+      listaDeClientes.add(pedido.getCliente());
+    }
+
+    for (String cliente : listaDeClientes) {
+      System.out.println(cliente);
+    }
+
   }
 }
