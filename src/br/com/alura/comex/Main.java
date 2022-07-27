@@ -1,6 +1,10 @@
 package br.com.alura.comex;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Main {
 
@@ -23,5 +27,12 @@ public class Main {
       System.out.println(cliente);
     }
 
+    OrdenarPedidosPorPreço ordenarPedidosPorPreço = new OrdenarPedidosPorPreço();
+    pedidos.sort(ordenarPedidosPorPreço);
+
+    for (Pedido pedido : pedidos) {
+      System.out.println(pedido.getPreco());
+    }
+    
   }
 }
