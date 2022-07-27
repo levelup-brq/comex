@@ -43,5 +43,14 @@ public class Main {
       System.out.println(categoria);
     }
     
+
+    ArrayList<String> listaDeClientesUnicos = new ArrayList<>(new HashSet<>(listaDeClientes));
+    System.out.println(listaDeClientesUnicos);
+    
+    listaDeClientesUnicos.sort((String c1, String c2) -> {
+      return c1.compareTo(c2);
+    });
+
+    System.out.println(listaDeClientesUnicos);
   }
 }
