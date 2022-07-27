@@ -1,10 +1,7 @@
 package br.com.alura.comex;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.HashSet;
 
 public class Main {
 
@@ -32,6 +29,18 @@ public class Main {
 
     for (Pedido pedido : pedidos) {
       System.out.println(pedido.getPreco());
+    }
+
+
+    ArrayList<String> listaDeCategorias = new ArrayList<>();
+    for (Pedido pedido : pedidos) {
+      listaDeCategorias.add(pedido.getCategoria());
+    }
+
+
+    ArrayList<String> categoriasSemDuplicacao = new ArrayList<>(new HashSet<>(listaDeCategorias));
+    for (String categoria : categoriasSemDuplicacao) {
+      System.out.println(categoria);
     }
     
   }
