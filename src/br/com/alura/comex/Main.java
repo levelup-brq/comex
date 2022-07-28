@@ -39,7 +39,7 @@ public class Main {
     }
 
 
-    ArrayList<String> categoriasSemDuplicacao = new ArrayList<>(new HashSet<>(listaDeCategorias));
+    HashSet<String> categoriasSemDuplicacao = new HashSet<>(listaDeCategorias);
     for (String categoria : categoriasSemDuplicacao) {
       System.out.println(categoria);
     }
