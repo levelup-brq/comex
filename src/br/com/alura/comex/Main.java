@@ -2,6 +2,7 @@ package br.com.alura.comex;
 
 import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Main {
 
@@ -30,6 +31,14 @@ public class Main {
 
     for (Pedido pedido: pedidos) {
       System.out.println(pedido.getPreco());
+    }
+
+    HashSet<String> listaCategorias = new HashSet<>();
+    for (Pedido pedido: pedidos) {
+      listaCategorias.add(pedido.getCategoria());
+    }
+    for (String categoria: listaCategorias) {
+      System.out.println(categoria);
     }
 
   }
