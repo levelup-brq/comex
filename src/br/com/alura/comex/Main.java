@@ -2,6 +2,7 @@ package br.com.alura.comex;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Map;
 
 public class Main {
 
@@ -42,7 +43,7 @@ public class Main {
     for (String categoria : categoriasSemDuplicacao) {
       System.out.println(categoria);
     }
-    
+
 
     ArrayList<String> listaDeClientesUnicos = new ArrayList<>(new HashSet<>(listaDeClientes));
     System.out.println(listaDeClientesUnicos);
@@ -52,5 +53,14 @@ public class Main {
     });
 
     System.out.println(listaDeClientesUnicos);
+
+    RelatorioDePedidosPorCategoria pedidosPorCategoria = new RelatorioDePedidosPorCategoria(listaDeCategorias);
+    Map<String, Long> pedidosMap = pedidosPorCategoria.pedidoPorCategoria();
+
+    for (Map.Entry<String, Long> pedido : pedidosMap.entrySet()) {
+      String pedidoFormatado = String.format("%s: %s", pedido.getKey(), pedido.getValue());
+      System.out.println(pedidoFormatado);
+    }
+
   }
 }
