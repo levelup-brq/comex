@@ -21,9 +21,16 @@ public class Main {
       listaClientes.add(pedido.getCliente());
       }
 
-      for (String cliente: listaClientes) {
+    for (String cliente: listaClientes) {
         System.out.println(cliente);
-
     }
+
+    var comparator = new PrecoPedidoComparator();
+    pedidos.sort(comparator);
+
+    for (Pedido pedido: pedidos) {
+      System.out.println(pedido.getPreco());
+    }
+
   }
 }
