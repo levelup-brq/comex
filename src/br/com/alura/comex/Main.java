@@ -1,8 +1,9 @@
 package br.com.alura.comex;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 public class Main {
 
@@ -39,6 +40,16 @@ public class Main {
     }
     for (String categoria: listaCategorias) {
       System.out.println(categoria);
+    }
+
+    SortedSet<String> listaClientesOrdenados = new TreeSet<>(listaClientes);
+
+    for (Pedido pedido: pedidos) {
+      listaClientesOrdenados.add(pedido.getCliente());
+    }
+
+    for (String cliente: listaClientesOrdenados) {
+      System.out.println(cliente);
     }
 
   }
