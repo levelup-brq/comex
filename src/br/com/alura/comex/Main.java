@@ -68,7 +68,8 @@ public class Main {
  	 // Quebra de Linha
  	 System.out.println("");
  	 System.out.println("Relatório de número de pedidos por categoria");
- 	 Map<String, Integer> report = pedidos.stream().collect(
+ 	 Map<String, Integer> report = pedidos.stream()
+ 			 .collect(
  			  	Collectors.groupingBy(p -> p.getCategoria(),
  			  	Collectors.summingInt(q -> 1)));
  	  
