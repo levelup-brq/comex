@@ -8,23 +8,23 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class ProcessadorDeCsv {
 
-  public static ArrayList<Pedido> processaArquivo(String nomeDoArquivo) {
+  public static List<Pedido> processaArquivo(String nomeDoArquivo) {
     try {
       URL recursoCSV = ClassLoader.getSystemResource(nomeDoArquivo);
       Path caminhoDoArquivo = Path.of(recursoCSV.toURI());
 
+      @SuppressWarnings("resource")
       Scanner leitorDeLinhas = new Scanner(caminhoDoArquivo);
 
       leitorDeLinhas.nextLine();
 
-      ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
+      List<Pedido> pedidos = new ArrayList<Pedido>();
 
-      int quantidadeDeRegistros = 0;
       while (leitorDeLinhas.hasNextLine()) {
         String linha = leitorDeLinhas.nextLine();
         String[] registro = linha.split(",");
@@ -39,7 +39,6 @@ public class ProcessadorDeCsv {
         Pedido pedido = new Pedido(categoria, produto, cliente, preco, quantidade, data);
         pedidos.add(pedido);
 
-        quantidadeDeRegistros++;
       }
 
       return pedidos;
