@@ -26,7 +26,7 @@ public class Main {
 	  
 	  // Quebra de Linha
 	  System.out.println("");
-	  
+	  System.out.println("Lista com nomes dos clientes");
 	  
 	  for(Pedido p : pedidos) {
 		  
@@ -42,7 +42,7 @@ public class Main {
 	  
 	  // Quebra de Linha
 	  System.out.println("");
-	  
+	  System.out.println("Lista ordenada de preços");
 	  pedidos.stream()
       		.sorted((p1, p2) -> p1.getPreco().compareTo(p2.getPreco()))
       			.forEach(p -> System.out.println(p.getPreco()));
@@ -51,21 +51,22 @@ public class Main {
 	  
 	  // Quebra de Linha
 	  System.out.println("");
+	  System.out.println("Lista de categorias sem duplicações");
 	  categorias.stream().forEach(c -> System.out.println(c));
     
 	  
 	  
 	  // Quebra de Linha
  	  System.out.println("");
- 	  
+ 	  System.out.println("Lista ordenada de clientes sem duplicações");
  	  nomesOrdenados.stream()
        		.sorted((n1, n2) -> n1.compareTo(n2))
        			.forEach(n -> System.out.println(n));
  	  
  	 
- 	  // Quebra de Linha
- 	  System.out.println("");
- 	  
+ 	 // Quebra de Linha
+ 	 System.out.println("");
+ 	 System.out.println("Relatório de número de pedidos por categoria");
  	 Map<String, Integer> report = pedidos.stream().collect(
  			  	Collectors.groupingBy(p -> p.getCategoria(),
  			  	Collectors.summingInt(q -> 1)));
