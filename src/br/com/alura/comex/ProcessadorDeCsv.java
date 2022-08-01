@@ -8,11 +8,12 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class ProcessadorDeCsv {
 
-  public static ArrayList<Pedido> processaArquivo(String nomeDoArquivo) {
+  public static List<Pedido> processaArquivo(String nomeDoArquivo) {
     try {
       URL recursoCSV = ClassLoader.getSystemResource(nomeDoArquivo);
       Path caminhoDoArquivo = Path.of(recursoCSV.toURI());

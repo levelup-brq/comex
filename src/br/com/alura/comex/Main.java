@@ -2,7 +2,9 @@ package br.com.alura.comex;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class Main {
 
@@ -10,7 +12,7 @@ public class Main {
     /**
      * Número de Pedidos
      */
-    ArrayList<Pedido> pedidos = ProcessadorDeCsv.processaArquivo("pedidos.csv");
+    List<Pedido> pedidos = ProcessadorDeCsv.processaArquivo("pedidos.csv");
     String numeroDePedido = String.format("Número de pedidos: %s", pedidos.size());
     System.out.println(numeroDePedido);
 
@@ -20,14 +22,16 @@ public class Main {
      */
     String primeiroPedido = String.format("Primeiro pedido: %s", pedidos.get(0));
     String ultimoPedido = String.format("Ultimo pedido: %s", pedidos.get(pedidos.size() - 1));
-    System.out.println(primeiroPedido);
+    //System.out.println(primeiroPedido);
     System.out.println(ultimoPedido);
+
+    System.out.printf("%s", pedidos.get(0));
     
     
     /**
      * Lista com o nome dos clientes
      */
-    ArrayList<String> listaDeClientes = new ArrayList<>();
+    List<String> listaDeClientes = new ArrayList<>();
     for (Pedido pedido : pedidos) {
       listaDeClientes.add(pedido.getCliente());
     }
@@ -40,8 +44,8 @@ public class Main {
     /**
      * Lista de preços ordenados
      */
-    OrdenarPedidosPorPreço ordenarPedidosPorPreço = new OrdenarPedidosPorPreço();
-    pedidos.sort(ordenarPedidosPorPreço);
+    OrdenarPedidosPorPreco ordenarPedidosPorPreco = new OrdenarPedidosPorPreco();
+    pedidos.sort(ordenarPedidosPorPreco);
 
     for (Pedido pedido : pedidos) {
       System.out.println(pedido.getPreco());
@@ -51,12 +55,12 @@ public class Main {
     /**
      * Lista de Categoria sem duplicação
      */
-    ArrayList<String> listaDeCategorias = new ArrayList<>();
+    Set<String> categoriasSemDuplicacao = new HashSet<>();
+
     for (Pedido pedido : pedidos) {
-      listaDeCategorias.add(pedido.getCategoria());
+      categoriasSemDuplicacao.add(pedido.getCategoria());
     }
 
-    ArrayList<String> categoriasSemDuplicacao = new ArrayList<>(new HashSet<>(listaDeCategorias));
     for (String categoria : categoriasSemDuplicacao) {
       System.out.println(categoria);
     }
@@ -65,7 +69,7 @@ public class Main {
     /**
      * Lista de clientes sem duplicações
      */
-    ArrayList<String> listaDeClientesUnicos = new ArrayList<>(new HashSet<>(listaDeClientes));
+    List<String> listaDeClientesUnicos = new ArrayList<>(new HashSet<>(listaDeClientes));
     
     listaDeClientesUnicos.sort((String c1, String c2) -> {
       return c1.compareTo(c2);
@@ -78,14 +82,23 @@ public class Main {
 
     /**
      * Relatório de pedido por categoria
-     */
-    RelatorioDePedidosPorCategoria pedidosPorCategoria = new RelatorioDePedidosPorCategoria(listaDeCategorias);
+     * 
+     * */
+
+    List<String> categorias = new ArrayList<>();
+
+    for (Pedido pedido : pedidos) {
+      categorias.add(pedido.getCategoria());
+    }
+     
+    RelatorioDePedidosPorCategoria pedidosPorCategoria = new RelatorioDePedidosPorCategoria(categorias);
     Map<String, Long> pedidosMap = pedidosPorCategoria.pedidoPorCategoria();
 
     for (Map.Entry<String, Long> pedido : pedidosMap.entrySet()) {
       String pedidoFormatado = String.format("%s: %s", pedido.getKey(), pedido.getValue());
       System.out.println(pedidoFormatado);
     }
+    
 
   }
 }

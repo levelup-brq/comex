@@ -2,7 +2,7 @@ package br.com.alura.comex;
 
 import java.util.Comparator;
 
-public class OrdenarPedidosPorPreço implements Comparator<Pedido> {
+public class OrdenarPedidosPorPreco implements Comparator<Pedido> {
 
   @Override
   public int compare(Pedido p1, Pedido p2) {
