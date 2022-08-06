@@ -20,7 +20,7 @@ public class Main {
     }
 
     for (String categoria : categoriasSemDuplicacao) {
-     //System.out.println(categoria);
+     System.out.println(categoria);
     }
 
 
@@ -39,5 +39,22 @@ public class Main {
     }
 
 
+    /**
+     * Lista de clientes sem duplicações
+     *
+     */
+    Set<String> listaDeClientesUnicos = new HashSet<>();
+
+    for (Pedido pedido : pedidos) {
+      listaDeClientesUnicos.add(pedido.getCliente());
+    }
+
+    List<String> clientes = listaDeClientesUnicos.stream().sorted((String c1, String c2) -> {
+      return c1.compareTo(c2);
+    }).collect(Collectors.toList());
+
+    for (String cliente : clientes) {
+      System.out.println(cliente);
+    }
   }
 }
