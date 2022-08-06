@@ -26,6 +26,7 @@ public class Main {
 
     /**
      * Relatório de número de pedidos por categoria
+     * 
      */
     Map<String, Long> categoriasSemDuplicoes = pedidos.stream()
       .collect(
@@ -40,14 +41,12 @@ public class Main {
 
 
     /**
-     * Lista de clientes sem duplicações
+     * Lista de clientes ordenados sem duplicações
      *
      */
     Set<String> listaDeClientesUnicos = new HashSet<>();
 
-    for (Pedido pedido : pedidos) {
-      listaDeClientesUnicos.add(pedido.getCliente());
-    }
+    pedidos.forEach(pedido -> listaDeClientesUnicos.add(pedido.getCliente()));
 
     List<String> clientes = listaDeClientesUnicos.stream().sorted((String c1, String c2) -> {
       return c1.compareTo(c2);
