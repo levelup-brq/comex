@@ -1,9 +1,8 @@
 package br.com.alura.comex;
 
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.*;
 import java.util.List;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -18,6 +17,14 @@ public class Main {
     }
     for (String categoria : conjuntoCategorias) {
       System.out.println(categoria);
+    }
+
+    System.out.println("\n");
+
+    Map<String, Long> pedidosPorCategoria = pedidos.stream().collect(Collectors.groupingBy(Pedido::getCategoria, Collectors.counting()));
+
+    for (Map.Entry<String, Long> pedido : pedidosPorCategoria.entrySet()) {
+      System.out.println(pedido.getKey() + ": " + pedido.getValue());
     }
   }
 }
