@@ -21,9 +21,9 @@ public class Main {
 
     System.out.println("\n");
 
-    Map<String, Long> pedidosPorCategoria = pedidos.stream().collect(Collectors.groupingBy(Pedido::getCategoria, Collectors.counting()));
+    Map<String, Long> numeroPedidosPorCategoria = pedidos.stream().collect(Collectors.groupingBy(Pedido::getCategoria, Collectors.counting()));
 
-    for (Map.Entry<String, Long> pedido : pedidosPorCategoria.entrySet()) {
+    for (Map.Entry<String, Long> pedido : numeroPedidosPorCategoria.entrySet()) {
       System.out.println(pedido.getKey() + ": " + pedido.getValue());
     }
 
