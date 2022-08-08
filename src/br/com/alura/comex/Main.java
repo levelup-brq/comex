@@ -3,6 +3,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -44,16 +45,11 @@ public class Main {
      * Lista de clientes ordenados sem duplicações
      *
      */
-    Set<String> listaDeClientesUnicos = new HashSet<>();
 
-    pedidos.forEach(pedido -> listaDeClientesUnicos.add(pedido.getCliente()));
+    pedidos.stream()
+      .map(Pedido::getCliente)
+      .collect(Collectors.toCollection(TreeSet::new))
+      .forEach(System.out::println);
 
-    List<String> clientes = listaDeClientesUnicos.stream().sorted((String c1, String c2) -> {
-      return c1.compareTo(c2);
-    }).collect(Collectors.toList());
-
-    for (String cliente : clientes) {
-      System.out.println(cliente);
-    }
   }
 }
