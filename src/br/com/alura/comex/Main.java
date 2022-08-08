@@ -26,5 +26,15 @@ public class Main {
     for (Map.Entry<String, Long> pedido : pedidosPorCategoria.entrySet()) {
       System.out.println(pedido.getKey() + ": " + pedido.getValue());
     }
+
+    System.out.println("\n");
+
+    SortedSet<String> listaClientesOrdenados = new TreeSet<>(listaClientes);
+    for (Pedido pedido : pedidos) {
+      listaClientesOrdenados.add(pedido.getCliente());
+    }
+    for (String cliente : listaClientesOrdenados) {
+      System.out.println(cliente);
+    }
   }
 }
