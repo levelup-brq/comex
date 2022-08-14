@@ -14,7 +14,7 @@ import java.util.List;
 
 import com.opencsv.CSVReader;
 
-public class ProcessadorReaderCsv {
+public class ProcessadorDeCsvLibExterna {
 
   public static List<Pedido> processaArquivo(String nomeDoArquivo) {
     try {
