@@ -1,4 +1,4 @@
-package br.com.alura.comex;
+package main.java.br.com.alura.comex;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -7,14 +7,12 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 public class ProcessadorDeCsv {
 
-  public static List<Pedido> processaArquivo(String nomeDoArquivo) {
+  public static Pedido[] processaArquivo(String nomeDoArquivo) {
     try {
       URL recursoCSV = ClassLoader.getSystemResource(nomeDoArquivo);
       Path caminhoDoArquivo = Path.of(recursoCSV.toURI());
@@ -23,7 +21,7 @@ public class ProcessadorDeCsv {
 
       leitorDeLinhas.nextLine();
 
-      List<Pedido> pedidos = new ArrayList<>();
+      Pedido[] pedidos = new Pedido[10];
 
       int quantidadeDeRegistros = 0;
       while (leitorDeLinhas.hasNextLine()) {
@@ -38,7 +36,12 @@ public class ProcessadorDeCsv {
         String cliente = registro[5];
 
         Pedido pedido = new Pedido(categoria, produto, cliente, preco, quantidade, data);
-        pedidos.add(pedido);
+        pedidos[quantidadeDeRegistros] = pedido;
+
+        quantidadeDeRegistros++;
+        if (pedidos[pedidos.length - 1] != null) {
+          pedidos = Arrays.copyOf(pedidos, pedidos.length * 2);
+        }
       }
 
       return pedidos;
