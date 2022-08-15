@@ -18,7 +18,7 @@ public class ProcessadorDeCsvLibExterna {
 
   public static List<Pedido> processaArquivo(String nomeDoArquivo) {
     try {
-      ArrayList<Pedido> pedidos = new ArrayList<>();
+      List<Pedido> pedidos = new ArrayList<>();
 
       URL recursoCSV = ClassLoader.getSystemResource(nomeDoArquivo);
       Path caminhoDoArquivo = Path.of(recursoCSV.toURI());
