@@ -1,4 +1,4 @@
-package main.java.br.com.alura.comex;
+package br.com.alura.comex;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -8,7 +8,6 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -41,7 +40,6 @@ public class ProcessadorDeCsv {
         pedidos.add(pedido);
 
       }
-
       return pedidos;
     } catch (URISyntaxException e) {
       throw new RuntimeException(String.format("Arquivo {} não localizado!", nomeDoArquivo));
