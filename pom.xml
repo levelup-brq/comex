@@ -3,6 +3,14 @@
   <groupId>br.com.comex</groupId>
   <artifactId>comex</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <dependencies>
+  	<dependency>
+	    <groupId>org.junit.jupiter</groupId>
+	    <artifactId>junit-jupiter</artifactId>
+	    <version>5.9.0</version>
+	    <scope>test</scope>
+	</dependency>
+  </dependencies>
   <build>
     <plugins>
       <plugin>
