@@ -22,9 +22,9 @@ public class ProcessadorCsvTest {
   public void DeveLancarUmaExeptionSeOArquivoNaoEstaNoFormatoDeCsv() {    
     Exception exception = assertThrows(
       NoSuchElementException.class, 
-      () -> ProcessadorDeCsv.processaArquivo("pedidos.txt"));
+      () -> ProcessadorDeCsv.processaArquivo("pedidosVazio.csv"));
 
-    assertEquals(exception.getMessage(), "O arquivo não está no formado .csv");
+    assertEquals(exception.getMessage(), "Não foi possível processar nenhuma linha do csv");
   }
 
 

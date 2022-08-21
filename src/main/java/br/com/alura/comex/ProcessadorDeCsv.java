@@ -48,7 +48,7 @@ public class ProcessadorDeCsv {
     } catch (NullPointerException e) {
       throw new RuntimeException("Arquivo não existe");
     } catch (NoSuchElementException e) {
-      throw new NoSuchElementException("O arquivo não está no formado .csv");
+      throw new NoSuchElementException("Não foi possível processar nenhuma linha do csv");
     }
   }
 }
