@@ -23,6 +23,10 @@ public class Pedido {
     this.data = data;
   }
 
+  public Pedido() {
+
+  }
+
   public String getCategoria() {
     return categoria;
   }
