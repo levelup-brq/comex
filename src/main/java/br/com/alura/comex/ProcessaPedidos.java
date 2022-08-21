@@ -14,9 +14,8 @@ public class ProcessaPedidos {
   }
 
   public List<String> nomeDosClientes() {
-    List<Pedido> pedidos = ProcessadorDeCsv.processaArquivo("pedidos.csv");
 
-    return pedidos
+    return this.pedidos
       .stream()
       .map(Pedido::getCliente)
       .collect(Collectors.toList());
