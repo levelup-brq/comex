@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class ProcessadorDeCsv {
@@ -44,6 +45,10 @@ public class ProcessadorDeCsv {
       throw new RuntimeException(String.format("Arquivo {} não localizado!", nomeDoArquivo));
     } catch (IOException e) {
       throw new RuntimeException("Erro ao abrir Scanner para processar arquivo!");
+    } catch (NullPointerException e) {
+      throw new RuntimeException("Arquivo não existe");
+    } catch (NoSuchElementException e) {
+      throw new NoSuchElementException("O arquivo não está no formado .csv");
     }
   }
 }
