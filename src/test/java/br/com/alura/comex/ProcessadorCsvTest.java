@@ -15,12 +15,11 @@ public class ProcessadorCsvTest {
     Exception exception = assertThrows(
       RuntimeException.class, 
       () -> ProcessadorDeCsv.processaArquivo("pedidoNaoExiste"));
-    System.out.println(exception.getMessage());
     assertEquals(exception.getMessage(), "Arquivo não existe");
   }
 
   @Test
-  public void lancar() {    
+  public void DeveLancarUmaExeptionSeOArquivoNaoEstaNoFormatoDeCsv() {    
     Exception exception = assertThrows(
       NoSuchElementException.class, 
       () -> ProcessadorDeCsv.processaArquivo("pedidos.txt"));
