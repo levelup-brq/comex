@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.com.alura.comex.dao.ClienteDao;
 import br.com.alura.comex.model.Cliente;
+import br.com.alura.comex.model.StatusCliente;
 
 public class ClienteDaoMain {
 
@@ -14,31 +15,37 @@ public class ClienteDaoMain {
 		Cliente c = new Cliente();
 		c.setCpf("111");
 		c.setNome("A");
-		c.setStatus(true);
+		c.setTel("+5521111");
+		c.setEmail("a@a.com");
+		c.setProfissao("Analista");
 		
 		dao.cadastrar(c);
 		
 		c = new Cliente();
 		c.setCpf("222");
 		c.setNome("B");
-		c.setStatus(true);
+		c.setTel("+5521222");
+		c.setEmail("b@b.com");
+		c.setProfissao("Analista");
 		
 		dao.cadastrar(c);
 		
 		c = new Cliente();
 		c.setCpf("333");
 		c.setNome("C");
-		c.setStatus(true);
+		c.setTel("+5521333");
+		c.setEmail("c@c.com");
+		c.setProfissao("Analista");
 		
 		dao.cadastrar(c);
 		
-		c.setStatus(false);
+		c.setStatus(StatusCliente.SUSPENSO);
 		dao.atualizar(c);
 		
 		Cliente c2 = new ClienteDao().buscarPorNome("C");
 		System.out.println(c2);
 		System.out.println("**************");
-		List<Cliente> clientesAtivos = dao.buscarPorStatus(true);
+		List<Cliente> clientesAtivos = dao.buscarPorStatus(StatusCliente.ATIVO);
 		clientesAtivos.stream().forEach(System.out::println);
 	}
 

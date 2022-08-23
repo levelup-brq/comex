@@ -3,6 +3,7 @@ package br.com.alura.comex.dao;
 import java.util.List;
 
 import br.com.alura.comex.model.Cliente;
+import br.com.alura.comex.model.StatusCliente;
 
 public class ClienteDao extends GenericDao<Cliente, String> {
 
@@ -10,7 +11,7 @@ public class ClienteDao extends GenericDao<Cliente, String> {
 		super(Cliente.class);
 	}
 
-	public List<Cliente> buscarPorStatus(Boolean status) {
+	public List<Cliente> buscarPorStatus(StatusCliente status) {
 		String jpql = "SELECT c FROM Cliente c WHERE c.status = ?1";
 		return entityManager.createQuery(jpql, Cliente.class).setParameter(1, status).getResultList();
 	}

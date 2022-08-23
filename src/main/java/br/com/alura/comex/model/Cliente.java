@@ -1,8 +1,13 @@
 package br.com.alura.comex.model;
 
 import java.util.Objects;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 @Entity
@@ -10,12 +15,19 @@ import javax.persistence.Table;
 public class Cliente {
 
 	@Id
+	@Column(length=11)
 	private String cpf;
+	@Column(nullable=false, length=512)
 	private String nome;
+	@Column(nullable=false, length=14)
 	private String tel;
+	@Column(nullable=false, length=512)
 	private String email;
+	@Column(nullable=false, length=512)
 	private String profissao;
-	private Boolean status;
+	@Column(nullable=false, length=8)
+	@Enumerated(EnumType.STRING)
+	private StatusCliente status;
 
 	public String getNome() {
 		return nome;
@@ -57,11 +69,11 @@ public class Cliente {
 		this.profissao = profissao;
 	}
 
-	public Boolean getStatus() {
+	public StatusCliente getStatus() {
 		return status;
 	}
 
-	public void setStatus(Boolean status) {
+	public void setStatus(StatusCliente status) {
 		this.status = status;
 	}
 
@@ -69,6 +81,8 @@ public class Cliente {
 	public int hashCode() {
 		return Objects.hash(cpf, email, nome, profissao, status, tel);
 	}
+
+	
 
 	@Override
 	public boolean equals(Object obj) {
@@ -89,6 +103,9 @@ public class Cliente {
 		return "Cliente [cpf=" + cpf + ", nome=" + nome + ", status=" + status + "]";
 	}
 	
-	
-
+	@PrePersist
+	private void fillPersistent() {
+		if (this.status == null)
+			this.status = StatusCliente.ATIVO;
+	}
 }
