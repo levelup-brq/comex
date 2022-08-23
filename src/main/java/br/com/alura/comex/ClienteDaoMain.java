@@ -43,10 +43,25 @@ public class ClienteDaoMain {
 		dao.atualizar(c);
 		
 		Cliente c2 = new ClienteDao().buscarPorNome("C");
+		
+		System.out.println("\n*********************************************");
+		System.out.println("BUSCA POR NOME");
+		System.out.println("*********************************************");
+		
 		System.out.println(c2);
-		System.out.println("**************");
+		
+		System.out.println("*********************************************\n");
+		
+		
 		List<Cliente> clientesAtivos = dao.buscarPorStatus(StatusCliente.ATIVO);
+		
+		System.out.println("\n*********************************************");
+		System.out.println("BUSCA POR STATUS");
+		System.out.println("*********************************************");
+		
 		clientesAtivos.stream().forEach(System.out::println);
+		
+		System.out.println("*********************************************\n");
 	}
 
 }
