@@ -37,7 +37,7 @@ public class CategoriaDaoMain {
 		System.out.println("CATEGORIAS ATIVAS");
 		System.out.println("*********************************************");
 		
-		categoriasAtivas.stream().forEach(System.out::println);
+		categoriasAtivas.forEach(System.out::println);
 		
 		System.out.println("*********************************************\n");
 	}

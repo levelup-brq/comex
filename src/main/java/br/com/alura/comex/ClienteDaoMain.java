@@ -59,7 +59,7 @@ public class ClienteDaoMain {
 		System.out.println("BUSCA POR STATUS");
 		System.out.println("*********************************************");
 		
-		clientesAtivos.stream().forEach(System.out::println);
+		clientesAtivos.forEach(System.out::println);
 		
 		System.out.println("*********************************************\n");
 	}

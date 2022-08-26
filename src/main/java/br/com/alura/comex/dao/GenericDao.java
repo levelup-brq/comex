@@ -2,9 +2,7 @@ package br.com.alura.comex.dao;
 
 import java.io.Serializable;
 import java.util.List;
-
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -23,8 +21,7 @@ public abstract class GenericDao<T, I extends Serializable> {
 		this();
 		this.persistedClass = persistedClass;
 		
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("comex");
-		this.entityManager = factory.createEntityManager();
+		this.entityManager = Persistence.createEntityManagerFactory("comex").createEntityManager();
 	}
 	
 	public T cadastrar(T entity) {
