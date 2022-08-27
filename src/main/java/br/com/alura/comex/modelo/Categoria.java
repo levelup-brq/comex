@@ -18,6 +18,14 @@ public class Categoria {
   private Long id;
   private String nome;
 
+  public Categoria() {}
+
+  public Categoria(String nome, StatusCategoria status) {
+    this.nome = nome;
+    this.status = status;
+  }
+
+
   @Enumerated(EnumType.STRING)
   @Column(name = "status")
   private StatusCategoria status = StatusCategoria.ATIVA;
@@ -25,13 +33,13 @@ public class Categoria {
   public String getNome() {
     return nome;
   }
-  public void setNome(String nome) {
-    this.nome = nome;
-  }
+
 
   public StatusCategoria getStatus() {
     return status;
   }
+
+  
   public void setStatus(StatusCategoria status) {
     this.status = status;
   }
