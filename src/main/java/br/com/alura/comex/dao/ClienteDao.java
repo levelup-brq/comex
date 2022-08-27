@@ -19,8 +19,8 @@ public class ClienteDao {
     this.entityManager.persist(cliente);
   }
 
-  public void atualizar(Cliente cliente) {
-    this.entityManager.merge(cliente);
+  public Cliente atualizar(Cliente cliente) {
+    return this.entityManager.merge(cliente);
   }
 
   public void remover(Cliente cliente) {
