@@ -5,7 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import br.com.alura.comex.modelo.Cliente;
-import br.com.alura.comex.modelo.Status;
+import br.com.alura.comex.modelo.StatusDoCliente;
 
 public class ClienteDao {
 
@@ -48,7 +48,7 @@ public class ClienteDao {
       .getSingleResult();
   }
 
-  public List<Cliente> buscarPorStatus(Status status) {
+  public List<Cliente> buscarPorStatus(StatusDoCliente status) {
     var query = "SELECT c FROM Cliente c WHERE c.status = :status";
 
     return this.entityManager

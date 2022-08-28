@@ -4,57 +4,77 @@ import javax.persistence.EntityManager;
 
 import br.com.alura.comex.dao.ClienteDao;
 import br.com.alura.comex.modelo.Cliente;
-import br.com.alura.comex.modelo.Status;
+import br.com.alura.comex.modelo.StatusDoCliente;
 import br.com.alura.comex.util.EntityManagerFabrica;
 
 public class MainClienteDao {
   public static void main(String[] args) {
-
     EntityManager entityManager = EntityManagerFabrica.getEntityManager();
+    
     ClienteDao clienteDao = new ClienteDao(entityManager);
 
+    var gandalf = new Cliente(
+      "Gandalf", 
+      "01232100055", 
+      "11912344321", 
+      "gandalf@outlook.com", 
+      "developer", 
+      StatusDoCliente.ATIVO);
 
-    var gandalf = new Cliente();
-    gandalf.setNome("Gandalf");
-    gandalf.setCpf("01232100055");
-    gandalf.setEmail("gandalf@outlook.com");
-    gandalf.setProfissao("developer");
-    gandalf.setStatus(Status.ATIVO);
+    var jonas = new Cliente(
+      "jonas",
+      "01232100055",
+      "11912344321",
+      "jonas@outlook.com",
+      "developer",
+      StatusDoCliente.ATIVO
+    );
 
-    var steve = new Cliente();
-    steve.setNome("Steve");
-    steve.setCpf("01232100055");
-    steve.setEmail("steve@outlook.com");
-    steve.setProfissao("Ator");
-    steve.setStatus(Status.ATIVO);
-
-    var bilbo = new Cliente();
-    bilbo.setNome("Bilbo");
-    bilbo.setCpf("01232100055");
-    bilbo.setEmail("bilbo@outlook.com");
-    bilbo.setProfissao("Explorador");
-    bilbo.setStatus(Status.ATIVO);
+    var bilbo = new Cliente(
+      "Bilbo",
+      "01232100055",
+      "11912344321",
+      "bilbo@outlook.com",
+      "Historiador",
+      StatusDoCliente.ATIVO
+    );
     
     entityManager.getTransaction().begin();
 
     clienteDao.cadastrar(gandalf);
     clienteDao.cadastrar(bilbo);
-    clienteDao.cadastrar(steve);
+    clienteDao.cadastrar(jonas);
 
     entityManager.flush();
 
 
-    bilbo.setStatus(Status.SUSPENSO);
-    clienteDao.atualizar(bilbo);
+    /*Edita um cliente*/
+    bilbo.setStatus(StatusDoCliente.SUSPENSO);
 
 
+    /*Busca cliente por nome */
     var nomeDoCliente = clienteDao.buscarPorNome("Bilbo").getNome();
-    System.out.println(nomeDoCliente);
+    System.out.println("cliente por nome: " + nomeDoCliente);
 
 
-    clienteDao.buscarPorStatus(Status.ATIVO).forEach(cliente -> {
-      System.out.print("-----------------");
-      System.out.print(cliente.getNome());            
+    /*Busca cliente por status ativo */
+    clienteDao.buscarPorStatus(StatusDoCliente.ATIVO).forEach(cliente -> {
+      System.out.println("cliente ativo: " + cliente.getNome());            
+    });
+
+
+    /*Busca cliente por Id */
+    System.out.println("Cliente por id: " + clienteDao.buscarPorId(2l).getNome());
+
+
+    /*Remove um cliente */
+    clienteDao.remover(bilbo);
+
+
+    /*Busca todos os clientes */
+    clienteDao.buscarTodos().forEach(cliente -> {
+      var relatorio = String.format("clientes cadastrados: %s %s ", cliente.getNome(), cliente.getEmail());
+      System.out.println(relatorio);            
     });
 
     entityManager.getTransaction().commit();

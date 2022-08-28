@@ -1,6 +1,6 @@
 package br.com.alura.comex.modelo;
 
-public enum Status {
+public enum StatusDoCliente {
   ATIVO,
   SUSPENSO;
 }

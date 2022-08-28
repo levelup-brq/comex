@@ -16,60 +16,62 @@ public class Cliente {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+  
 
+  @Column(nullable = false)
   private String nome;
 
-  @Column(length = 11)
+  @Column(length = 11, nullable = false)
   private String cpf;
 
-  @Column(length = 11)
+  @Column(length = 11, nullable = false)
   private String telefone;
   
+  @Column(nullable = false)
   private String email;
+
+  @Column(nullable = false)
   private String profissao;
 
   @Enumerated(EnumType.STRING)
-  private Status status;
+  @Column(nullable = false, name = "status")
+  private StatusDoCliente status;
+
+  public Cliente(String nome, String cpf, String telefone, String email, String profissao, StatusDoCliente status) {
+    this.nome = nome;
+    this.cpf = cpf;
+    this.telefone = telefone;
+    this.email = email;
+    this.profissao = profissao;
+    this.status = status;
+  }
+
+  public Cliente() {}
 
   public String getNome() {
     return nome;
-  }
-  public void setNome(String nome) {
-    this.nome = nome;
   }
 
   public String getCpf() {
     return cpf;
   }
-  public void setCpf(String cpf) {
-    this.cpf = cpf;
-  }
 
   public String getTelefone() {
     return telefone;
-  }
-  public void setTelefone(String telefone) {
-    this.telefone = telefone;
   }
 
   public String getEmail() {
     return email;
   }
-  public void setEmail(String email) {
-    this.email = email;
-  }
 
   public String getProfissao() {
     return profissao;
   }
-  public void setProfissao(String profissao) {
-    this.profissao = profissao;
-  }
 
-  public Status getStatus() {
+  public StatusDoCliente getStatus() {
     return status;
   }
-  public void setStatus(Status status) {
+  public void setStatus(StatusDoCliente status) {
     this.status = status;
   }
 
