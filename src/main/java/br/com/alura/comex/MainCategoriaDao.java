@@ -11,20 +11,13 @@ public class MainCategoriaDao {
   public static void main(String[] args) {
     EntityManager entityManager = EntityManagerFabrica.getEntityManager();
     CategoriaDao categoriaDao = new CategoriaDao(entityManager);
+
+
+    Categoria eletronicos = new Categoria("eletronicos", StatusCategoria.ATIVA); 
     
+    Categoria games = new Categoria("games", StatusCategoria.ATIVA);
 
-    Categoria eletronicos = new Categoria(); 
-    eletronicos.setNome("eletronicos");
-    eletronicos.setStatus(StatusCategoria.ATIVA);
-    
-
-    Categoria games = new Categoria();
-    games.setNome("games");
-    games.setStatus(StatusCategoria.ATIVA);
-
-    Categoria informatica = new Categoria();
-    informatica.setNome("informatica");
-    informatica.setStatus(StatusCategoria.ATIVA);
+    Categoria informatica = new Categoria("informatica", StatusCategoria.ATIVA);
 
     entityManager.getTransaction().begin();
 
@@ -32,12 +25,27 @@ public class MainCategoriaDao {
     categoriaDao.cadastrar(games);
     categoriaDao.cadastrar(informatica);
 
-
     informatica.setStatus(StatusCategoria.INATIVA);
     
     categoriaDao.buscarCategoriasAtivas().forEach(categoria -> {
-      System.out.println("--------------------");
-      System.out.println(categoria.getStatus());
+      var relatorio = String
+        .format("categorias ativas: %s %s", categoria.getNome(), categoria.getStatus());
+      
+      System.out.println(relatorio);
+    });
+
+    categoriaDao.buscarCategoriasInativas().forEach(categoria -> {
+      var relatorio = String
+        .format("categorias inativas: %s %s", categoria.getNome(), categoria.getStatus());
+      System.out.println(relatorio);
+    });
+
+    System.out.println("categoria por Id: " + categoriaDao.buscarPorId(1l).getNome());
+
+    categoriaDao.remover(informatica);
+
+    categoriaDao.buscarTodos().forEach(categoria -> {
+      System.out.println("categoria: " + categoria.getNome());
     });
 
     entityManager.getTransaction().commit();

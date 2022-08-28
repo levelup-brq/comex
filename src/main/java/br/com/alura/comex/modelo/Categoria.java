@@ -16,7 +16,13 @@ public class Categoria {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
+  @Column(nullable = false)
   private String nome;
+
+  @Enumerated(EnumType.STRING)
+  @Column(name = "status", nullable = false)
+  private StatusCategoria status = StatusCategoria.ATIVA;
 
   public Categoria() {}
 
@@ -25,21 +31,14 @@ public class Categoria {
     this.status = status;
   }
 
-
-  @Enumerated(EnumType.STRING)
-  @Column(name = "status")
-  private StatusCategoria status = StatusCategoria.ATIVA;
-
   public String getNome() {
     return nome;
   }
-
 
   public StatusCategoria getStatus() {
     return status;
   }
 
-  
   public void setStatus(StatusCategoria status) {
     this.status = status;
   }
