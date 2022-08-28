@@ -60,11 +60,15 @@ public class MainProdutoDao {
     produtoDao.cadastrar(geladeira);
     produtoDao.cadastrar(fogao);
 
+    /**
+     * Busca produtos indisponiveis
+     */
     produtoDao.buscaProdutosIndisponiveis().forEach(produto -> {
       var mensagemProdutoIndisponivel = String.format("Produto Indisponivel: Nome: %s | Quantidade: %s", produto.getNome(), produto.getQuantidadeDeEstoque());
       System.out.println(mensagemProdutoIndisponivel);
     });
 
+    /*Busca produtos por id */
     Produto produto = produtoDao.buscarPorId(1l);
     var mensagem = "Produto por id: Nome: %s | Preço: %s | Categoria: %s";
     var mensagemProdutoPorId = String.format(
@@ -74,6 +78,8 @@ public class MainProdutoDao {
         produto.getCategoria().getNome());
     System.out.println(mensagemProdutoPorId);
 
+
+    /*Busca todos os produtos */
     produtoDao.buscarTodos().forEach(produtoItem -> {
       System.out.println(String.format("Nome: %s", produtoItem.getNome()));
     });
@@ -81,8 +87,7 @@ public class MainProdutoDao {
     entityManager.getTransaction().commit();
     entityManager.close();
 
-    
-
+  
   }
 
 }
