@@ -86,4 +86,9 @@ public class Cliente {
     public void setStatus(Status status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "Nome: " + this.nome + " E-mail: " + this.email + " CPF: " + this.cpf + " Profissao: " + this.profissao + " Status: " + this.status;
+    }
 }
