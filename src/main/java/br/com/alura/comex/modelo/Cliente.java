@@ -1,5 +1,8 @@
 package br.com.alura.comex.modelo;
 
+
+import br.com.alura.comex.Status;
+
 import javax.persistence.*;
 
 @Entity
@@ -26,7 +29,7 @@ public class Cliente {
     private String profissao;
 
     @Column(nullable = false, length = 8)
-    private String Status;
+    private Status status;
 
     public Long getId() {
         return id;
@@ -76,11 +79,11 @@ public class Cliente {
         this.profissao = profissao;
     }
 
-    public String getStatus() {
-        return Status;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setStatus(String status) {
-        Status = status;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }
