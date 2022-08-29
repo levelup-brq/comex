@@ -21,11 +21,11 @@ public class MainClienteDao {
       "developer", 
       StatusDoCliente.ATIVO);
 
-    var jonas = new Cliente(
-      "jonas",
+    var frodo = new Cliente(
+      "frodo",
       "01232100055",
       "11912344321",
-      "jonas@outlook.com",
+      "frodo@outlook.com",
       "developer",
       StatusDoCliente.ATIVO
     );
@@ -43,7 +43,7 @@ public class MainClienteDao {
 
     clienteDao.cadastrar(gandalf);
     clienteDao.cadastrar(bilbo);
-    clienteDao.cadastrar(jonas);
+    clienteDao.cadastrar(frodo);
 
     entityManager.flush();
 
@@ -73,7 +73,7 @@ public class MainClienteDao {
 
     /*Busca todos os clientes */
     clienteDao.buscarTodos().forEach(cliente -> {
-      var relatorio = String.format("clientes cadastrados: %s %s ", cliente.getNome(), cliente.getEmail());
+      var relatorio = String.format("clientes cadastrados: %s - %s ", cliente.getNome(), cliente.getEmail());
       System.out.println(relatorio);            
     });
 

@@ -130,10 +130,11 @@ public class MainPedidoDao {
     /**
      * Busca todos os pedidos de um cliente
      */
+    System.out.println("---Todos os pedidos de um cliente---");
     pedidoDao
       .buscaTodosDeUmCliente("Bilbo")
       .forEach(item -> {
-        var mensagem = "PEDIDO: Nome: %s, Data do Pedido: %s";
+        var mensagem = "PEDIDO %s - %s";
         var relatorio = String
           .format(mensagem, item.getCliente().getNome(), item.getDate());
         System.out.println(relatorio);
@@ -141,11 +142,13 @@ public class MainPedidoDao {
         item.getItensDoPedido().forEach(itemDoPedido -> 
           System.out.println("Nome do produto: " + itemDoPedido.getProduto().getNome()));
       });
+      System.out.println("---FIM---");
       
 
     /* 
      * Busca todos os pedidos
-     *
+     * 
+     * */
     pedidoDao
       .buscarTodos()
       .forEach(item -> {
@@ -155,20 +158,19 @@ public class MainPedidoDao {
 
         System.out.println(relatorio);
       });
-      */
+      
       
       
 
       /**
        * Busca pedido por Id
        * 
+       * */
       PedidoDoCliente pedidoPorId = pedidoDao.buscarPorId(1l);
-        var mensagem = "Pedido por ID: %s %s";
+        var mensagem = "Pedido por ID: %s - %s";
         var relatorioDoPedido = String
           .format(mensagem, pedidoPorId.getCliente().getNome(), pedidoPorId.getDate());
         System.out.println(relatorioDoPedido);
-        */
-        
         
   
     entityManager.getTransaction().commit();
