@@ -1,0 +1,78 @@
+package br.com.alura.comex.modelo;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="clientes")
+public class Cliente {
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+  
+
+  @Column(nullable = false)
+  private String nome;
+
+  @Column(length = 11, nullable = false)
+  private String cpf;
+
+  @Column(length = 11, nullable = false)
+  private String telefone;
+  
+  @Column(nullable = false)
+  private String email;
+
+  @Column(nullable = false)
+  private String profissao;
+
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false, name = "status")
+  private StatusDoCliente status;
+
+  public Cliente(String nome, String cpf, String telefone, String email, String profissao, StatusDoCliente status) {
+    this.nome = nome;
+    this.cpf = cpf;
+    this.telefone = telefone;
+    this.email = email;
+    this.profissao = profissao;
+    this.status = status;
+  }
+
+  public Cliente() {}
+
+  public String getNome() {
+    return nome;
+  }
+
+  public String getCpf() {
+    return cpf;
+  }
+
+  public String getTelefone() {
+    return telefone;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public String getProfissao() {
+    return profissao;
+  }
+
+  public StatusDoCliente getStatus() {
+    return status;
+  }
+  public void setStatus(StatusDoCliente status) {
+    this.status = status;
+  }
+
+}
