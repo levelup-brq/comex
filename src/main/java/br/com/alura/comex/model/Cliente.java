@@ -3,6 +3,7 @@ package br.com.alura.comex.model;
 import java.util.Objects;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -28,6 +29,9 @@ public class Cliente {
 	@Column(nullable=false, length=8)
 	@Enumerated(EnumType.STRING)
 	private StatusCliente status;
+	@Embedded
+	private Endereco endereco;
+	
 
 	public String getNome() {
 		return nome;
@@ -75,6 +79,14 @@ public class Cliente {
 
 	public void setStatus(StatusCliente status) {
 		this.status = status;
+	}
+	
+	public void setEndereco(String rua, String número, String complemento, String bairro, String cidade, String estado) {
+		this.endereco = new Endereco(rua, número, complemento, bairro, cidade, estado);
+	}
+	
+	public Endereco getEndereco() {
+		return this.endereco;
 	}
 
 	@Override
