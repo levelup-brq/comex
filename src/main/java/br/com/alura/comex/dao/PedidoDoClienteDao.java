@@ -36,7 +36,16 @@ public class PedidoDoClienteDao {
       .createQuery(query, PedidoDoCliente.class)
       .setParameter("nome", nomeDoCliente)
       .getResultList();
+  }
 
+
+  public List<PedidoDoCliente> gastoTotalDePedidosPorCliente() {
+    var query = "SELECT pedido " 
+    + "FROM PedidoDoCliente pedido " 
+    + "ORDER BY pedido.valorTotalDoPedido DESC";
+    return this.entityManager
+      .createQuery(query, PedidoDoCliente.class)
+      .getResultList();
   }
   
 }

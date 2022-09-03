@@ -1,18 +1,17 @@
 package br.com.alura.comex.modelo;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="itensDoPedido")
+@Table(name="itens_do_pedido")
 public class ItemDePedido {
 
   @Id
@@ -22,13 +21,13 @@ public class ItemDePedido {
   @Column(nullable = false)
   private BigDecimal precoUnitario;
 
-  @Column(nullable = true)
+  @Column(nullable = false)
   private Integer quantidade;
 
-  @OneToOne
+  @ManyToOne
   private Produto produto;
 
-  @OneToOne
+  @ManyToOne
   private PedidoDoCliente pedido;
 
   @Column(nullable = true)
@@ -41,12 +40,10 @@ public class ItemDePedido {
       BigDecimal precoUnitario, 
       Integer quantidade, 
       Produto produto, 
-      //PedidoDoCliente pedido,
       TipoDescontoItemPedido tipoDescontoItemPedido) {
     this.precoUnitario = precoUnitario;
     this.quantidade = quantidade;
     this.produto = produto;
-    //this.pedido = pedido;
     this.tipoDescontoItemPedido = tipoDescontoItemPedido;
   }
 
@@ -66,8 +63,8 @@ public class ItemDePedido {
     return produto;
   }
 
-  public PedidoDoCliente getPedido() {
-    return pedido;
+  public TipoDescontoItemPedido getTipoDescontoItemPedido() {
+    return tipoDescontoItemPedido;
   }
 
   public BigDecimal getDesconto() {
@@ -78,12 +75,12 @@ public class ItemDePedido {
     this.desconto = desconto;
   }
 
-  public TipoDescontoItemPedido getTipoDescontoItemPedido() {
-    return tipoDescontoItemPedido;
+  public void setPedido(PedidoDoCliente pedido) {
+    this.pedido = pedido;
   }
 
-
-
-
+  public PedidoDoCliente getPedido() {
+    return pedido;
+  }
 
 }
