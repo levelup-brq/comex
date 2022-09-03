@@ -1,6 +1,7 @@
 package br.com.alura.comex.modelo;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -16,7 +17,6 @@ public class Cliente {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  
 
   @Column(nullable = false)
   private String nome;
@@ -33,17 +33,26 @@ public class Cliente {
   @Column(nullable = false)
   private String profissao;
 
+  @Embedded
+  private Endereco endereco;
+
   @Enumerated(EnumType.STRING)
   @Column(nullable = false, name = "status")
-  private StatusDoCliente status;
+  private StatusDoCliente status = StatusDoCliente.ATIVO;
 
-  public Cliente(String nome, String cpf, String telefone, String email, String profissao, StatusDoCliente status) {
+  public Cliente(
+      String nome, 
+      String cpf, 
+      String telefone, 
+      String email, 
+      String profissao,
+      Endereco endereco) {
     this.nome = nome;
     this.cpf = cpf;
     this.telefone = telefone;
     this.email = email;
     this.profissao = profissao;
-    this.status = status;
+    this.endereco = endereco;
   }
 
   public Cliente() {}
@@ -71,8 +80,13 @@ public class Cliente {
   public StatusDoCliente getStatus() {
     return status;
   }
+
   public void setStatus(StatusDoCliente status) {
     this.status = status;
+  }
+  
+  public Endereco getEndereco() {
+    return endereco;
   }
 
 }

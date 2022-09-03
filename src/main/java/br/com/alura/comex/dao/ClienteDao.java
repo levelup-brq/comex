@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 
 import br.com.alura.comex.modelo.Cliente;
 import br.com.alura.comex.modelo.StatusDoCliente;
+import br.com.alura.comex.valueObjects.RelatorioDeClientesPorEstado;
 
 public class ClienteDao {
 
@@ -56,4 +57,17 @@ public class ClienteDao {
       .setParameter("status", status)
       .getResultList();
   }
+  
+  public List<RelatorioDeClientesPorEstado> numeroTotalDeClientesPorEstado() {
+    var query = "SELECT new br.com.alura.comex.valueObjects.RelatorioDeClientesPorEstado(" 
+      + "cliente.endereco.estado, " 
+      + "COUNT(cliente.id)) " 
+      + "FROM Cliente cliente "
+      + "GROUP BY cliente.endereco.estado";
+
+    return this.entityManager
+      .createQuery(query, RelatorioDeClientesPorEstado.class)
+      .getResultList();
+  }
+  
 }

@@ -1,84 +1,92 @@
 package br.com.alura.comex;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import br.com.alura.comex.dao.ClienteDao;
 import br.com.alura.comex.modelo.Cliente;
-import br.com.alura.comex.modelo.StatusDoCliente;
+import br.com.alura.comex.modelo.Endereco;
 import br.com.alura.comex.util.EntityManagerFabrica;
+import br.com.alura.comex.valueObjects.RelatorioDeClientesPorEstado;
 
 public class MainClienteDao {
   public static void main(String[] args) {
     EntityManager entityManager = EntityManagerFabrica.getEntityManager();
-    
     ClienteDao clienteDao = new ClienteDao(entityManager);
+    
+    Endereco enderecoCliente = new Endereco(
+      "rua 6", 
+      "456", 
+      "central", 
+      "Sao Paulo", 
+      "Sao Paulo");
 
-    var gandalf = new Cliente(
+    Endereco enderecoGomes = new Endereco(
+      "rua 6", 
+      "456", 
+      "central", 
+      "Sao Paulo", 
+      "Sao Paulo");
+
+    Endereco enderecoJonas = new Endereco(
+      "rua 6", 
+      "456", 
+      "central", 
+      "Recife", 
+      "Pernambuco");
+
+    Endereco enderecoJunior = new Endereco(
+      "rua 6", 
+      "456", 
+      "central", 
+      "Recife", 
+      "Pernambuco");
+    
+    var cliente = new Cliente(
       "Gandalf", 
       "01232100055", 
       "11912344321", 
       "gandalf@outlook.com", 
-      "developer", 
-      StatusDoCliente.ATIVO);
+      "developer", enderecoCliente);
 
-    var frodo = new Cliente(
-      "frodo",
-      "01232100055",
-      "11912344321",
-      "frodo@outlook.com",
+    var clienteJonas = new Cliente(
+      "Jonas", 
+      "01232100055", 
+      "11912344321", 
+      "Jonas@outlook.com", 
       "developer",
-      StatusDoCliente.ATIVO
-    );
+      enderecoJonas
+      );
 
-    var bilbo = new Cliente(
-      "Bilbo",
-      "01232100055",
-      "11912344321",
-      "bilbo@outlook.com",
-      "Historiador",
-      StatusDoCliente.ATIVO
+    var clienteGomes = new Cliente(
+      "Gomes", 
+      "01232100055", 
+      "11912344321", 
+      "gomes@outlook.com", 
+      "developer",
+      enderecoGomes
+      );
+
+    var clienteJunior = new Cliente(
+      "Gomes", 
+      "01232100055", 
+      "11912344321", 
+      "gomes@outlook.com", 
+      "developer",
+      enderecoJunior
     );
+    
     
     entityManager.getTransaction().begin();
 
-    clienteDao.cadastrar(gandalf);
-    clienteDao.cadastrar(bilbo);
-    clienteDao.cadastrar(frodo);
+    clienteDao.cadastrar(cliente);
+    clienteDao.cadastrar(clienteJonas);
+    clienteDao.cadastrar(clienteGomes);
+    clienteDao.cadastrar(clienteJunior);
 
-    entityManager.flush();
-
-
-    /*Edita um cliente*/
-    bilbo.setStatus(StatusDoCliente.SUSPENSO);
-
-
-    /*Busca cliente por nome */
-    var nomeDoCliente = clienteDao.buscarPorNome("Bilbo").getNome();
-    System.out.println("cliente por nome: " + nomeDoCliente);
-
-
-    /*Busca cliente por status ativo */
-    clienteDao.buscarPorStatus(StatusDoCliente.ATIVO).forEach(cliente -> {
-      System.out.println("cliente ativo: " + cliente.getNome());            
-    });
-
-
-    /*Busca cliente por Id */
-    System.out.println("Cliente por id: " + clienteDao.buscarPorId(2l).getNome());
-
-
-    /*Remove um cliente */
-    clienteDao.remover(bilbo);
-
-
-    /*Busca todos os clientes */
-    clienteDao.buscarTodos().forEach(cliente -> {
-      var relatorio = String.format("clientes cadastrados: %s - %s ", cliente.getNome(), cliente.getEmail());
-      System.out.println(relatorio);            
-    });
-
-    entityManager.getTransaction().commit();
-    entityManager.close();
+    List<RelatorioDeClientesPorEstado> totalDeClientesPorEstado = clienteDao.numeroTotalDeClientesPorEstado();
+    totalDeClientesPorEstado.forEach(System.out::println);
     
   }
 
