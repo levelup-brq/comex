@@ -8,7 +8,6 @@ import br.com.alura.comex.dao.CategoriaDao;
 import br.com.alura.comex.dao.ProdutoDao;
 import br.com.alura.comex.modelo.Categoria;
 import br.com.alura.comex.modelo.Produto;
-import br.com.alura.comex.modelo.StatusCategoria;
 import br.com.alura.comex.util.EntityManagerFabrica;
 
 public class MainProdutoDao {
@@ -18,8 +17,8 @@ public class MainProdutoDao {
     ProdutoDao produtoDao = new ProdutoDao(entityManager);
     CategoriaDao categoriaDao = new CategoriaDao(entityManager);
 
-    Categoria eletronicos = new Categoria("eletronicos", StatusCategoria.ATIVA);
-    Categoria eletroeletronicos = new Categoria("eletroeletronicos", StatusCategoria.ATIVA);
+    Categoria eletronicos = new Categoria("eletronicos");
+    Categoria eletroeletronicos = new Categoria("eletroeletronicos");
 
 
     Produto celular = new Produto(
@@ -27,6 +26,7 @@ public class MainProdutoDao {
       new BigDecimal(450), 
       2, 
       eletronicos);
+    celular.setDescricao("muito bom");
 
 
     Produto televisao = new Produto(
@@ -34,6 +34,7 @@ public class MainProdutoDao {
       new BigDecimal(2000), 
       1, 
       eletronicos);
+      televisao.setDescricao("muito bom");
 
 
     Produto geladeira = new Produto(
@@ -42,6 +43,7 @@ public class MainProdutoDao {
       0, 
       eletroeletronicos
     );
+    geladeira.setDescricao("muito bom");
 
     Produto fogao = new Produto(
       "fogao", 
@@ -49,6 +51,7 @@ public class MainProdutoDao {
       0, 
       eletroeletronicos
     );
+    fogao.setDescricao("fogao");
 
     entityManager.getTransaction().begin();
 
@@ -60,29 +63,18 @@ public class MainProdutoDao {
     produtoDao.cadastrar(geladeira);
     produtoDao.cadastrar(fogao);
 
-    /**
-     * Busca produtos indisponiveis
-     */
-    produtoDao.buscaProdutosIndisponiveis().forEach(produto -> {
-      var mensagemProdutoIndisponivel = String.format("Produto Indisponivel: Nome: %s | Quantidade: %s", produto.getNome(), produto.getQuantidadeDeEstoque());
-      System.out.println(mensagemProdutoIndisponivel);
-    });
 
-    /*Busca produtos por id */
+    System.out.println("***Produtos indisponiveis***");
+    produtoDao.buscaProdutosIndisponiveis().forEach(System.out::println);
+    System.out.println("***Produtos indisponiveis***");
+
     Produto produto = produtoDao.buscarPorId(1l);
-    var mensagem = "Produto por id: Nome: %s | Preço: %s | Categoria: %s";
-    var mensagemProdutoPorId = String.format(
-        mensagem, 
-        produto.getNome(), 
-        produto.getPrecoUnitario(),
-        produto.getCategoria().getNome());
-    System.out.println(mensagemProdutoPorId);
+    System.out.println("***Produto Por Id: ***");
+    System.out.println(produto);
+    System.out.println("***Produto Por Id: ***");
 
 
-    /*Busca todos os produtos */
-    produtoDao.buscarTodos().forEach(produtoItem -> {
-      System.out.println(String.format("Nome: %s", produtoItem.getNome()));
-    });
+    produtoDao.buscarTodos().forEach(System.out::println);
 
     entityManager.getTransaction().commit();
     entityManager.close();

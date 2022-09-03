@@ -13,11 +13,11 @@ public class MainCategoriaDao {
     CategoriaDao categoriaDao = new CategoriaDao(entityManager);
 
 
-    Categoria eletronicos = new Categoria("eletronicos", StatusCategoria.ATIVA); 
+    Categoria eletronicos = new Categoria("eletronicos"); 
     
-    Categoria games = new Categoria("games", StatusCategoria.ATIVA);
+    Categoria games = new Categoria("games");
 
-    Categoria informatica = new Categoria("informatica", StatusCategoria.ATIVA);
+    Categoria informatica = new Categoria("informatica");
 
     entityManager.getTransaction().begin();
 
