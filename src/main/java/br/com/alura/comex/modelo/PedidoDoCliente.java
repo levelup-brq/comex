@@ -8,12 +8,16 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 @Entity
 @Table(name = "pedidos")
@@ -36,6 +40,7 @@ public class PedidoDoCliente {
   @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
   private List<ItemDePedido> itensDePedido = new ArrayList<ItemDePedido>();
 
+  @Enumerated(EnumType.STRING)
   @Column(nullable = false)
   private TipoDoDesconto tipoDoDesconto;
   
@@ -107,7 +112,9 @@ public class PedidoDoCliente {
 
   @Override
   public String toString() {
-    return String.format("valorTotal: %s, Nome: %s", this.getValorTotalDoPedido(), this.cliente.getNome());
+    return String.format("Nome: %s, Valor total: %s", 
+      this.getValorTotalDoPedido(), 
+      this.getCliente().getNome());
   }
 
 }

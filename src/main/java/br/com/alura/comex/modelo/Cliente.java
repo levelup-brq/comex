@@ -89,4 +89,12 @@ public class Cliente {
     return endereco;
   }
 
+  @Override
+  public String toString() {
+    return String.format("nome: %s, email: %s, endereco: %s", 
+      this.getNome(), 
+      this.getEmail(),
+      this.getEndereco().getRua());
+  }
+
 }

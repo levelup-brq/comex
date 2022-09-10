@@ -31,7 +31,7 @@ public class Produto {
   @Column(nullable = false)
   private Integer quantidadeDeEstoque;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne
   private Categoria categoria;
 
   Produto() {}

@@ -42,4 +42,11 @@ public class Categoria {
     this.status = status;
   }
 
+  @Override
+  public String toString() {
+    return String.format("nome: %s, status: %s", 
+      this.getNome(), 
+      this.getStatus());
+  }
+
 }
