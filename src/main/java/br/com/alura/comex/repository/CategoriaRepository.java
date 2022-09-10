@@ -1,9 +1,15 @@
 package br.com.alura.comex.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import java.util.List;
+
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import br.com.alura.comex.modelo.Categoria;
+import br.com.alura.comex.modelo.StatusCategoria;
 
-public interface CategoriaRepository extends CrudRepository<Categoria, Integer> {
-  
+public interface CategoriaRepository extends PagingAndSortingRepository<Categoria, Long> {
+
+  @Query("SELECT categoria FROM Categoria categoria WHERE categoria.status = :status")
+  List<Categoria> buscarAtivas(StatusCategoria status);
 }
