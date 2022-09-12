@@ -88,10 +88,5 @@ public class ClienteService {
     this.clienteRepository.save(cliente);
   }
 
-  public void buscarClientePorStatus() {
-    List<Cliente> clientes = this.clienteRepository.buscarPorStatus(StatusDoCliente.ATIVO);
-    clientes.forEach(System.out::println);
-  }
-
 
 }
