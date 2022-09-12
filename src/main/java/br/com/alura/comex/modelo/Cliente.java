@@ -1,7 +1,5 @@
 package br.com.alura.comex.modelo;
 
-import br.com.alura.comex.Status;
-
 import javax.persistence.*;
 
 @Entity
@@ -37,9 +35,9 @@ public class Cliente {
         return endereco;
     }
 
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
+//    public void setEndereco(Endereco endereco) {
+//        this.endereco = endereco;
+//    }
 
     public Long getId() {
 
@@ -102,7 +100,7 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "Nome: " + this.nome + ", CPF: " + this.cpf + ", E-mail: " + this.email + ", Profissao: " + this.profissao + ", Status: " + this.status + " Endereço: " + this.endereco;
+        return "Nome: " + this.nome + ", CPF: " + this.cpf + ", E-mail: " + this.email + ", Profissao: " + this.profissao + ", Status: " + this.status;
     }
 
 }

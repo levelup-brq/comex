@@ -1,13 +1,13 @@
 package br.com.alura.comex;
 
 import br.com.alura.comex.modelo.Cliente;
+import br.com.alura.comex.modelo.Status;
 import br.com.alura.comex.repository.ClienteRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.List;
-import java.util.Scanner;
 
 @SpringBootApplication
 public class ComexApplication implements CommandLineRunner {
@@ -24,40 +24,39 @@ public class ComexApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        inicializadorCliente();
+    }
+    private void inicializadorCliente() {
+        buscarTodos();
+        buscaClientePorNome();
+        buscaTodosPorStatus();
+        salvarClientes();
     }
 
     private void buscarTodos() {
+        System.out.println("Buscar todos clientes");
         clienteRepository.findAll().forEach(System.out::println);
+        System.out.println("\n");
     }
 
     private void buscaClientePorNome() {
+        System.out.println("Buscar por nome");
 
         List<Cliente> clientes = clienteRepository.findByNome("Palmirinha");
-		clientes.forEach(System.out::println);
+        clientes.forEach(System.out::println);
+        System.out.println("\n");
     }
 
     private void buscaTodosPorStatus() {
+        System.out.println("Buscar por Status");
 
         List<Cliente> clientes = clienteRepository.findByStatus(Status.ATIVO);
-		clientes.forEach(System.out::println);
+        clientes.forEach(System.out::println);
+        System.out.println("\n");
     }
-
-    private void atualizarClienteParaSuspenso() {
-
-        Cliente cliente = clienteRepository.findById(2L).orElse(null);
-        cliente.setStatus(Status.SUSPENSO);
-
-        clienteRepository.save(cliente);
-
-    }
-	private void remover() {
-
-		Long id = 1L;
-		clienteRepository.deleteById(id);
-
-	}
 
     public void salvarClientes() {
+        System.out.println("Salvar clientes ");
 
         Cliente cliente = new Cliente();
 
@@ -68,8 +67,6 @@ public class ComexApplication implements CommandLineRunner {
         cliente.setEmail("punisher@mail.com");
         cliente.setStatus(Status.ATIVO);
 
-        clienteRepository.save(cliente);
-
         cliente = new Cliente();
 
         cliente.setNome("Peter Parker");
@@ -79,8 +76,6 @@ public class ComexApplication implements CommandLineRunner {
         cliente.setEmail("spiderman@mail.com");
         cliente.setStatus(Status.ATIVO);
 
-        clienteRepository.save(cliente);
-
         cliente = new Cliente();
         cliente.setNome("Palmirinha");
         cliente.setCpf("33344455566");
@@ -89,7 +84,6 @@ public class ComexApplication implements CommandLineRunner {
         cliente.setEmail("palmirinha@mail.com");
         cliente.setStatus(Status.ATIVO);
 
-		clienteRepository.save(cliente);
-
+        clienteRepository.save(cliente);
     }
 }

@@ -1,6 +1,6 @@
 package br.com.alura.comex.repository;
 
-import br.com.alura.comex.Status;
+import br.com.alura.comex.modelo.Status;
 import br.com.alura.comex.modelo.Cliente;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

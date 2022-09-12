@@ -1,8 +1,6 @@
 package br.com.alura.comex.modelo;
 
 
-import br.com.alura.comex.Status;
-
 import javax.persistence.*;
 
 @Entity

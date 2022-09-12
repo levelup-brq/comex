@@ -1,6 +1,6 @@
 //package br.com.alura.comex.dao;
 //
-//import br.com.alura.comex.Status;
+//import br.com.alura.comex.modelo.Status;
 //import br.com.alura.comex.modelo.Cliente;
 //import br.com.alura.comex.modelo.ClientePorEstado;
 //
