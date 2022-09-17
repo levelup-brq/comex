@@ -17,7 +17,7 @@ public class Categoria {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(nullable = false)
+  @Column(nullable = false, unique = true, length = 250)
   private String nome;
 
   @Enumerated(EnumType.STRING)
@@ -25,6 +25,10 @@ public class Categoria {
   private StatusCategoria status = StatusCategoria.ATIVA;
 
   public Categoria() {}
+
+  public Long getId() {
+    return id;
+  }
 
   public Categoria(String nome) {
     this.nome = nome;
