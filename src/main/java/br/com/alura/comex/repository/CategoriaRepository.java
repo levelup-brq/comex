@@ -12,4 +12,8 @@ public interface CategoriaRepository extends PagingAndSortingRepository<Categori
 
   @Query("SELECT categoria FROM Categoria categoria WHERE categoria.status = :status")
   List<Categoria> buscarAtivas(StatusCategoria status);
+
+  @Query("SELECT categoria FROM Categoria categoria ORDER BY categoria.nome ASC")
+  List<Categoria> buscarTodas();
+
 }
