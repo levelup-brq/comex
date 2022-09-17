@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,7 +18,7 @@ public class Produto {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(nullable = false)
+  @Column(nullable = false, unique = true)
   private String nome;
 
   @Column(length = 300, nullable = true)
@@ -29,7 +28,7 @@ public class Produto {
   private BigDecimal precoUnitario;
   
   @Column(nullable = false)
-  private Integer quantidadeDeEstoque;
+  private Integer quantidadeEmEstoque;
 
   @ManyToOne
   private Categoria categoria;
@@ -39,11 +38,11 @@ public class Produto {
   public Produto(
     String nome, 
     BigDecimal precoUnitario, 
-    Integer quantidadeDeEstoque, 
+    Integer quantidadeEmEstoque, 
     Categoria categoria) {
     this.nome = nome;
     this.precoUnitario = precoUnitario;
-    this.quantidadeDeEstoque = quantidadeDeEstoque;
+    this.quantidadeEmEstoque = quantidadeEmEstoque;
     this.categoria = categoria;
   }
   
@@ -56,8 +55,8 @@ public class Produto {
     return precoUnitario;
   }
 
-  public Integer getQuantidadeDeEstoque() {
-    return quantidadeDeEstoque;
+  public Integer getQuantidadeEmEstoque() {
+    return quantidadeEmEstoque;
   }
 
   public Categoria getCategoria() {
@@ -82,9 +81,13 @@ public class Produto {
       + "descricao: %s", 
       this.getNome(), 
       this.getPrecoUnitario(), 
-      this.getQuantidadeDeEstoque(), 
+      this.getQuantidadeEmEstoque(), 
       this.getCategoria().getNome(),
       this.getDescricao());
   }
+
+	public Long getId() {
+		return this.id;
+	}
 
 }
