@@ -64,7 +64,7 @@ public class Endereco {
   }
 
   public String local() {
-    return String.format("%s/%s", this.getEstado(), this.getCidade());
+    return String.format("%s/%s", this.getCidade(), this.getEstado());
   }
   
 }
