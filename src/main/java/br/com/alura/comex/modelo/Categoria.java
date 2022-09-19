@@ -14,7 +14,7 @@ public class Categoria {
     @Column(nullable = false, length = 200)
     private String nomeCategoria;
 
-    @Column(nullable = false, length = 8)
+    @Column(length = 8)
     private Status status;
 
     public Long getId() {
