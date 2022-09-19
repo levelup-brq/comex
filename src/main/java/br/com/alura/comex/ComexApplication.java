@@ -1,9 +1,7 @@
 package br.com.alura.comex;
 
-import br.com.alura.comex.modelo.Categoria;
-import br.com.alura.comex.modelo.Cliente;
-import br.com.alura.comex.modelo.Status;
-import br.com.alura.comex.modelo.StatusCategoria;
+import br.com.alura.comex.controller.dto.ClienteDto;
+import br.com.alura.comex.modelo.*;
 import br.com.alura.comex.repository.CategoriaRepository;
 import br.com.alura.comex.repository.ClienteRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -33,14 +31,15 @@ public class ComexApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-//        inicializadorCliente();
-        inicializadorCategoria();
+        inicializadorCliente();
+//        inicializadorCategoria();
     }
     private void inicializadorCliente() {
         salvarClientes();
         buscarTodos();
         buscaClientePorNome();
         buscaTodosPorStatus();
+//        alterarClienteParaSuspenso();
     }
 
     private void inicializadorCategoria() {
@@ -74,47 +73,78 @@ public class ComexApplication implements CommandLineRunner {
         System.out.println("\n");
     }
 
-//    private void atualizarClienteParaSuspenso() {
-//
-//        Cliente cliente = clienteRepository.findById(2L).orElse(null);
-//        cliente.setStatus(Status.SUSPENSO);
-//        clienteRepository.save(cliente);
-//    }
+    private void alterarClienteParaSuspenso() {
+
+        Cliente cliente = clienteRepository.findById(2L).orElse(null);
+        cliente.setStatus(Status.SUSPENSO);
+        clienteRepository.save(cliente);
+    }
 
     public void salvarClientes() {
         System.out.println("Clientes salvos \n ");
 
-        Cliente cliente = new Cliente();
+        Cliente cliente1 = new Cliente();
 
-        cliente.setNome("Frank Castle");
-        cliente.setCpf("11122233344");
-        cliente.setTelefone("123456789");
-        cliente.setProfissao("Contador");
-        cliente.setEmail("punisher@mail.com");
-        cliente.setStatus(Status.ATIVO);
+        cliente1.setNome("Frank Castle");
+        cliente1.setCpf("11122233344");
+        cliente1.setTelefone("123456789");
+        cliente1.setProfissao("Contador");
+        cliente1.setEmail("punisher@mail.com");
+        cliente1.setStatus(Status.ATIVO);
 
-        clienteRepository.save(cliente);
+        Endereco enderecoC1 = new Endereco();
+        enderecoC1.setRua("Avenida Paulista");
+        enderecoC1.setNumero("2000");
+        enderecoC1.setComplemento("Sala 8");
+        enderecoC1.setBairro("Bela Vista");
+        enderecoC1.setCidade("São Paulo");
+        enderecoC1.setEstado("São Paulo");
 
-        cliente = new Cliente();
+        cliente1.setEndereco(enderecoC1);
 
-        cliente.setNome("Peter Parker");
-        cliente.setCpf("22233344455");
-        cliente.setTelefone("123456789");
-        cliente.setProfissao("Fotógrafo");
-        cliente.setEmail("spiderman@mail.com");
-        cliente.setStatus(Status.ATIVO);
+        clienteRepository.save(cliente1);
 
-        clienteRepository.save(cliente);
+        Cliente cliente2 = new Cliente();
 
-        cliente = new Cliente();
-        cliente.setNome("Palmirinha");
-        cliente.setCpf("33344455566");
-        cliente.setTelefone("123456789");
-        cliente.setProfissao("Cozinheira");
-        cliente.setEmail("palmirinha@mail.com");
-        cliente.setStatus(Status.ATIVO);
+        cliente2.setNome("Peter Parker");
+        cliente2.setCpf("22233344455");
+        cliente2.setTelefone("123456789");
+        cliente2.setProfissao("Fotógrafo");
+        cliente2.setEmail("spiderman@mail.com");
+        cliente2.setStatus(Status.ATIVO);
 
-        clienteRepository.save(cliente);
+        Endereco enderecoC2 = new Endereco();
+        enderecoC2.setRua("Rua 1");
+        enderecoC2.setNumero("2");
+        enderecoC2.setComplemento("Sala 3");
+        enderecoC2.setBairro("Bairro 4");
+        enderecoC2.setCidade("Belo Horizonte");
+        enderecoC2.setEstado("Minas Gerais");
+
+        cliente2.setEndereco(enderecoC2);
+
+        clienteRepository.save(cliente2);
+
+        Cliente cliente3 = new Cliente();
+
+        cliente3.setNome("Palmirinha");
+        cliente3.setCpf("33344455566");
+        cliente3.setTelefone("123456789");
+        cliente3.setProfissao("Cozinheira");
+        cliente3.setEmail("palmirinha@mail.com");
+        cliente3.setStatus(Status.ATIVO);
+
+        Endereco enderecoC3 = new Endereco();
+        enderecoC3.setRua("Rua 10");
+        enderecoC3.setNumero("0");
+        enderecoC3.setComplemento("Sala 30");
+        enderecoC3.setBairro("Bairro 40");
+        enderecoC3.setCidade("Rio de Janeiro");
+        enderecoC3.setEstado("Rio de Janeiro");
+
+        cliente3.setEndereco(enderecoC3);
+
+        clienteRepository.save(cliente3);
     }
 
 //    private void cadastraTresCategoriasAtivas() {

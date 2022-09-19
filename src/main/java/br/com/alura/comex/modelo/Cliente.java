@@ -25,19 +25,33 @@ public class Cliente {
     @Column(nullable = false, length = 200)
     private String profissao;
 
-    @Column(nullable = false, length = 8)
+    @Column(nullable = false)
     private Status status;
 
     @Column(nullable = false)
     private Endereco endereco;
 
+    public Cliente() {
+    }
+
+    public Cliente(String nome, String cpf, String telefone, String email, String profissao, Endereco endereco,
+                   Status status) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.telefone = telefone;
+        this.email = email;
+        this.profissao = profissao;
+        this.endereco = endereco;
+        this.status = status;
+    }
+
     public Endereco getEndereco() {
         return endereco;
     }
 
-//    public void setEndereco(Endereco endereco) {
-//        this.endereco = endereco;
-//    }
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
 
     public Long getId() {
 
@@ -100,7 +114,7 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "Nome: " + this.nome + ", CPF: " + this.cpf + ", E-mail: " + this.email + ", Profissao: " + this.profissao + ", Status: " + this.status;
+        return "Nome: " + this.nome + ", CPF: " + this.cpf + ", E-mail: " + this.email + ", Profissao: " + this.profissao + ", Status: " + this.status + ", Endereço: " + this.endereco;
     }
 
 }
