@@ -35,7 +35,7 @@ public class ComexApplication implements CommandLineRunner{
 		
 		// rotinaCliente();
 		
-		rotinaCategoria();
+		//rotinaCategoria();
 	}
 	
 	private void rotinaCliente() {

@@ -32,6 +32,25 @@ public class Cliente {
 	@Embedded
 	private Endereco endereco;
 	
+	
+	public Cliente() {
+		super();
+	}
+	
+	
+
+	public Cliente(String cpf, String nome, String tel, String email, String profissao,
+			Endereco endereco) {
+		
+		this.cpf = cpf;
+		this.nome = nome;
+		this.tel = tel;
+		this.email = email;
+		this.profissao = profissao;
+		this.endereco = endereco;
+	}
+
+
 
 	public String getNome() {
 		return nome;
