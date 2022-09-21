@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.data.web.config.EnableSpringDataWebSupport;
 
 import br.com.alura.comex.model.Categoria;
 import br.com.alura.comex.model.Cliente;
@@ -14,6 +16,8 @@ import br.com.alura.comex.repository.CategoriaRepository;
 import br.com.alura.comex.repository.ClienteRepository;
 
 @SpringBootApplication
+@EnableSpringDataWebSupport
+@EnableCaching
 public class ComexApplication implements CommandLineRunner{
 	
 	private final ClienteRepository clienteRepository;
