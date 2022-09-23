@@ -20,7 +20,7 @@ public class TokenService {
 	@Value("${comex.jwt.secret}")
 	private String secret;
 
-	public String gerarToken(Authentication auth) {
+	public String generateToken(Authentication auth) {
 		
 		Usuario logado = (Usuario) auth.getPrincipal();
 		Date hoje = new Date();

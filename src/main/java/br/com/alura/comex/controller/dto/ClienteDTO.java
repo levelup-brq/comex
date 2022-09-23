@@ -19,7 +19,6 @@ public class ClienteDTO {
 	
 	
 	public ClienteDTO(Cliente cliente) {
-		super();
 		this.cpf = cliente.getCpf();
 		this.nome = cliente.getNome();
 		this.tel = cliente.getTel();

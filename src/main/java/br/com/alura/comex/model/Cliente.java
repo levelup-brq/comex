@@ -8,8 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "clientes")
@@ -32,6 +34,8 @@ public class Cliente {
 	@Embedded
 	private Endereco endereco;
 	
+	@OneToOne
+	private Usuario usuario;
 	
 	public Cliente() {
 		super();
@@ -44,6 +48,15 @@ public class Cliente {
 		
 		this.cpf = cpf;
 		this.nome = nome;
+		this.tel = tel;
+		this.email = email;
+		this.profissao = profissao;
+		this.endereco = endereco;
+	}
+
+
+
+	public Cliente(@NotNull String tel, @NotNull String email, String profissao, Endereco endereco) {
 		this.tel = tel;
 		this.email = email;
 		this.profissao = profissao;
@@ -107,6 +120,20 @@ public class Cliente {
 	public Endereco getEndereco() {
 		return this.endereco;
 	}
+	
+	
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+
 
 	@Override
 	public int hashCode() {
