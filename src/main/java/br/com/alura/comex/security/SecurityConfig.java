@@ -50,7 +50,7 @@ public class SecurityConfig {
 	@Bean
 	protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-			.antMatchers(HttpMethod.GET, "/api/clientes").permitAll()
+			.antMatchers(HttpMethod.GET, "/api/categorias").permitAll()
 			.antMatchers(HttpMethod.POST, "/auth").permitAll()
 			.antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
 			.antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()

@@ -23,6 +23,14 @@ public class Categoria {
 	
 	@Enumerated(EnumType.STRING)
 	private StatusCategoria status;
+	
+	public Categoria() {
+		
+	}
+	
+	public Categoria(String nome) {
+		this.nome = nome;
+	}
 
 	public Integer getId() {
 		return id;
