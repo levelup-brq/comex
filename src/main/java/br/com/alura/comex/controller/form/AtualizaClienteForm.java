@@ -6,6 +6,7 @@ import javax.validation.constraints.NotNull;
 
 import br.com.alura.comex.model.Cliente;
 import br.com.alura.comex.model.Endereco;
+import br.com.alura.comex.model.StatusCliente;
 import br.com.alura.comex.repository.ClienteRepository;
 
 public class AtualizaClienteForm {
@@ -17,7 +18,7 @@ public class AtualizaClienteForm {
 	@NotNull
 	private String email;
 	private String profissao;
-
+	private StatusCliente status;
 	@NotNull
 	private String rua;
 	@NotNull
@@ -49,6 +50,12 @@ public class AtualizaClienteForm {
 	}
 	public void setProfissao(String profissao) {
 		this.profissao = profissao;
+	}
+	public StatusCliente getStatus() {
+		return status;
+	}
+	public void setStatus(StatusCliente status) {
+		this.status = status;
 	}
 	public String getRua() {
 		return rua;
