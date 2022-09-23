@@ -8,6 +8,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -35,6 +36,9 @@ public class Cliente {
 
   @Embedded
   private Endereco endereco;
+
+  @OneToOne
+  Usuario usuario;
 
   @Enumerated(EnumType.STRING)
   @Column(nullable = false, name = "status")
