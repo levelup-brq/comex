@@ -82,7 +82,13 @@ public class CategoriaController {
 	@CacheEvict(value = "listaDeCategorias", allEntries = true)
 	@Operation(summary = "comex", security = @SecurityRequirement(name = "bearerAuth"))
 	public ResponseEntity<?> remover(@PathVariable Integer id){
-		categoriaRepository.deleteById(id);
-		return ResponseEntity.ok().build();
+		Optional<Categoria> optional = categoriaRepository.findById(id);
+		
+		if(optional.isPresent()) {
+			categoriaRepository.deleteById(id);
+			return ResponseEntity.ok().build();
+		}
+		
+		return ResponseEntity.notFound().build();
 	}
 }

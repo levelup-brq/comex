@@ -82,7 +82,13 @@ public class ClienteController {
 	@CacheEvict(value = "listaDeClientes", allEntries = true)
 	@Operation(summary = "comex", security = @SecurityRequirement(name = "bearerAuth"))
 	public ResponseEntity<?> remover(@PathVariable String cpf){
-		clienteRepository.deleteById(cpf);
-		return ResponseEntity.ok().build();
+		Optional<Cliente> optional = clienteRepository.findById(cpf);
+		
+		if(optional.isPresent()) {
+			clienteRepository.deleteById(cpf);
+			return ResponseEntity.ok().build();
+		}
+		
+		return ResponseEntity.notFound().build();
 	}
 }
