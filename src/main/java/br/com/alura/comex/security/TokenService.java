@@ -54,7 +54,6 @@ public class TokenService {
       .parseClaimsJws(token)
       .getBody();
       
-    System.out.println(">>> " + claims.getSubject());
     return Long.parseLong(claims.getSubject());
   }
 }

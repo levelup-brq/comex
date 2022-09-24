@@ -30,7 +30,6 @@ public class AutenticacaoViaTokenFilter extends OncePerRequestFilter  {
       throws ServletException, IOException {
 
     String token = recuperarToken(request);
-    System.out.println(token);
 
     boolean valido = tokenService.isTokenValido(token);
     if (valido) {
