@@ -29,6 +29,9 @@ public class ClienteForm {
   @NotEmpty
   private String profissao;
 
+  @NotNull
+  @NotEmpty
+  private String usuarioId;
 
   // Atributos para ENDERECO
   @NotNull
@@ -140,6 +143,14 @@ public class ClienteForm {
 
   public void setEstado(String estado) {
     this.estado = estado;
+  }
+
+  public String getUsuarioId() {
+    return usuarioId;
+  }
+
+  public void setUsuarioId(String usuarioId) {
+    this.usuarioId = usuarioId;
   }
 
   public Cliente converter() {
