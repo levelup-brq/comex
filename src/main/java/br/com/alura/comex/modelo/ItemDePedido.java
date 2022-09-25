@@ -1,6 +1,7 @@
 package br.com.alura.comex.modelo;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,17 +37,18 @@ public class ItemDePedido {
   private BigDecimal desconto;
 
   @Column(nullable = false)
+  @Enumerated(EnumType.STRING)
   private TipoDescontoItemPedido tipoDescontoItemPedido;
 
   public ItemDePedido(
       BigDecimal precoUnitario, 
       Integer quantidade, 
-      Produto produto, 
-      TipoDescontoItemPedido tipoDescontoItemPedido) {
+      Produto produto) {
     this.precoUnitario = precoUnitario;
     this.quantidade = quantidade;
     this.produto = produto;
-    this.tipoDescontoItemPedido = tipoDescontoItemPedido;
+
+    this.aplicarDescontoPorQuantidade();
   }
 
   public Long getId() {
@@ -57,6 +59,10 @@ public class ItemDePedido {
     return precoUnitario;
   }
 
+  public void setPrecoUnitario(BigDecimal precoUnitario) {
+    this.precoUnitario = precoUnitario;
+  }
+
   public Integer getQuantidade() {
     return quantidade;
   }
@@ -65,9 +71,12 @@ public class ItemDePedido {
     return produto;
   }
 
-  @Enumerated(EnumType.STRING)
   public TipoDescontoItemPedido getTipoDescontoItemPedido() {
     return tipoDescontoItemPedido;
+  }
+
+  public void setTipoDescontoItemPedido(TipoDescontoItemPedido tipoDescontoItemPedido) {
+    this.tipoDescontoItemPedido = tipoDescontoItemPedido;
   }
 
   public BigDecimal getDesconto() {
@@ -78,12 +87,33 @@ public class ItemDePedido {
     this.desconto = desconto;
   }
 
+  public PedidoDoCliente getPedido() {
+    return pedido;
+  }
+
   public void setPedido(PedidoDoCliente pedido) {
     this.pedido = pedido;
   }
 
-  public PedidoDoCliente getPedido() {
-    return pedido;
+  private void calcularDesconto() {
+    BigDecimal valorDoDesconto = this.getPrecoUnitario()
+      .multiply(this.getDesconto());
+      
+    BigDecimal novoPrecoDoProduto = this.getPrecoUnitario()
+      .subtract(valorDoDesconto)
+      .setScale(2, RoundingMode.HALF_EVEN);
+    
+    this.setPrecoUnitario(novoPrecoDoProduto);
+  }
+
+  private void aplicarDescontoPorQuantidade() {
+    if (this.getQuantidade() >= 10) {
+      this.setTipoDescontoItemPedido(TipoDescontoItemPedido.QUANTIDADE);
+      this.setDesconto(new BigDecimal(0.10));
+      this.calcularDesconto();
+    } else {
+      this.setTipoDescontoItemPedido(TipoDescontoItemPedido.NENHUM);
+    }
   }
 
 }

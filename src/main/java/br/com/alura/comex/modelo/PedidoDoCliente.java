@@ -47,13 +47,15 @@ public class PedidoDoCliente {
 
   PedidoDoCliente() {}
 
-  public PedidoDoCliente(
-    Cliente cliente, 
-    TipoDoDesconto tipoDoDesconto) {
+  public PedidoDoCliente(Cliente cliente) {
     this.cliente = cliente;
-    this.tipoDoDesconto = tipoDoDesconto;
     this.data = LocalDate.now();
   }
+
+  public Long getId() {
+    return id;
+  }
+
 
   public LocalDate getDate() {
     return data;
@@ -79,6 +81,10 @@ public class PedidoDoCliente {
     return tipoDoDesconto;
   }
 
+  public void setTipoDoDesconto(TipoDoDesconto tipoDoDesconto) {
+    this.tipoDoDesconto = tipoDoDesconto;
+  }
+
   public List<ItemDePedido> getItensDoPedido() {
     return this.itensDePedido;
   }
@@ -100,12 +106,26 @@ public class PedidoDoCliente {
     this.itensDePedido.add(item);
   }
 
-  public void calculaValorTotalDoPedido() {
+  public void calcularValorTotalDoPedido() {
     this.valorTotalDoPedido = this.itensDePedido
     .stream()
     .map(item -> item.getPrecoUnitario()
       .multiply(new BigDecimal(item.getQuantidade())))
     .reduce(BigDecimal.ZERO, BigDecimal::add);
+  }
+
+  public void aplicarDescontoPorQuantidadeDePedidos(Integer quantidadeDePedido) {
+    if (quantidadeDePedido >= 5) {
+      this.setTipoDoDesconto(TipoDoDesconto.FIDELIDADE);
+
+      this.setDesconto(new BigDecimal("0.05"));
+      BigDecimal totalDoDesconto = this.getTotalDePedido().multiply(this.getDesconto());
+      BigDecimal novoValorDoPedido = this.getTotalDePedido().subtract(totalDoDesconto);
+      this.setTotalDePedido(novoValorDoPedido);
+      
+    } else {
+      this.setTipoDoDesconto(TipoDoDesconto.NENHUM);
+    }
   }
 
   @Override

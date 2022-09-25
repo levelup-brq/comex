@@ -50,13 +50,15 @@ public class Cliente {
       String telefone, 
       String email, 
       String profissao,
-      Endereco endereco) {
+      Endereco endereco,
+      Usuario usuario) {
     this.nome = nome;
     this.cpf = cpf;
     this.telefone = telefone;
     this.email = email;
     this.profissao = profissao;
     this.endereco = endereco;
+    this.usuario = usuario;
   }
 
   public Cliente() {}
@@ -95,6 +97,14 @@ public class Cliente {
   
   public Endereco getEndereco() {
     return endereco;
+  }
+
+  public void setUsuario(Usuario usuario) {
+    this.usuario = usuario;
+  }
+
+  public Usuario getUsuario() {
+    return this.usuario;
   }
 
   @Override

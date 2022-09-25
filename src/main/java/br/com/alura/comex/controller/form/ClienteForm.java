@@ -5,6 +5,8 @@ import javax.validation.constraints.NotNull;
 
 import br.com.alura.comex.modelo.Cliente;
 import br.com.alura.comex.modelo.Endereco;
+import br.com.alura.comex.modelo.Usuario;
+import br.com.alura.comex.repository.UsuarioRepository;
 
 public class ClienteForm {    
 
@@ -30,8 +32,7 @@ public class ClienteForm {
   private String profissao;
 
   @NotNull
-  @NotEmpty
-  private String usuarioId;
+  private Long usuarioId;
 
   // Atributos para ENDERECO
   @NotNull
@@ -145,15 +146,19 @@ public class ClienteForm {
     this.estado = estado;
   }
 
-  public String getUsuarioId() {
+  public Long getUsuarioId() {
     return usuarioId;
   }
 
-  public void setUsuarioId(String usuarioId) {
+  public void setUsuarioId(Long usuarioId) {
     this.usuarioId = usuarioId;
   }
 
-  public Cliente converter() {
+  public Cliente converter(UsuarioRepository usuarioRepository) {
+    Usuario usuario = usuarioRepository
+      .findById(this.getUsuarioId())
+      .orElse(null);
+
     Endereco endereco = new Endereco(
       this.getRua(),
       this.getNumero(),
@@ -168,7 +173,8 @@ public class ClienteForm {
       this.getTelefone(),
       this.getEmail(),
       this.getProfissao(),
-      endereco
+      endereco,
+      usuario
     );
 
   }

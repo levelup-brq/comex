@@ -1,5 +1,6 @@
 package br.com.alura.comex.repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import br.com.alura.comex.modelo.GastoTotalDePedidoPorCliente;
 import br.com.alura.comex.modelo.PedidoDoCliente;
+import br.com.alura.comex.modelo.TotalDePedidoPorCliente;
 
 @Repository
 public interface PedidoDoClienteRepository extends CrudRepository<PedidoDoCliente, Integer> {
@@ -21,5 +23,12 @@ public interface PedidoDoClienteRepository extends CrudRepository<PedidoDoClient
     + "WHERE cliente.id = pedido.cliente_id "
     + "GROUP BY pedido.cliente_id", nativeQuery = true)
   public List<GastoTotalDePedidoPorCliente> gastoTotalDePedidosPorCliente();
+
+  @Query(value = "SELECT cliente.id, COUNT(pedido.cliente_id) AS totalDePedidos "
+   + "FROM pedidos AS pedido " 
+   + "JOIN clientes AS cliente "
+   + "WHERE cliente.id = pedido.cliente_id "
+   + "GROUP BY pedido.cliente_id", nativeQuery = true)
+  public TotalDePedidoPorCliente totalDePedidosPorCliente();
 
 }
