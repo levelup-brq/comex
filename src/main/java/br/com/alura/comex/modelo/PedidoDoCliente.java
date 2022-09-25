@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "pedidos")
@@ -44,6 +45,13 @@ public class PedidoDoCliente {
   
   @Column(nullable = true)
   private BigDecimal valorTotalDoPedido = BigDecimal.ZERO;
+
+  @Column(nullable = true)
+  private BigDecimal totalDeDescontos = BigDecimal.ZERO;
+
+  @Transient
+  private BigDecimal calcularTotalDeDescontos = BigDecimal.ZERO;
+
 
   PedidoDoCliente() {}
 
@@ -101,6 +109,31 @@ public class PedidoDoCliente {
     return valorTotalDoPedido;
   }
 
+  public BigDecimal getValorTotalDoDesconto() {
+    return totalDeDescontos;
+  }
+
+  public void setValorTotalDoDesconto(BigDecimal totalDeDescontos) {
+    this.totalDeDescontos = totalDeDescontos;
+  }
+
+  public BigDecimal getTotalDeDescontos() {
+    return totalDeDescontos;
+  }
+
+  public void setTotalDeDescontos(BigDecimal totalDeDescontos) {
+    this.totalDeDescontos = totalDeDescontos;
+  }
+
+  public BigDecimal getCalcularTotalDeDescontos() {
+    return calcularTotalDeDescontos;
+  }
+
+  public void setCalcularTotalDeDescontos(BigDecimal calcularTotalDeDescontos) {
+    this.calcularTotalDeDescontos = calcularTotalDeDescontos;
+  }
+
+
   public void adicionaPedido(ItemDePedido item) {
     item.setPedido(this);
     this.itensDePedido.add(item);
@@ -114,18 +147,34 @@ public class PedidoDoCliente {
     .reduce(BigDecimal.ZERO, BigDecimal::add);
   }
 
-  public void aplicarDescontoPorQuantidadeDePedidos(Integer quantidadeDePedido) {
-    if (quantidadeDePedido >= 5) {
-      this.setTipoDoDesconto(TipoDoDesconto.FIDELIDADE);
+  public void aplicarDescontoPorQuantidadeDePedidos(TotalDePedidoPorCliente totalDePedidoPorCliente) {
+    if (totalDePedidoPorCliente != null && totalDePedidoPorCliente.getTotalDePedido() >= 5) {
 
+      this.setTipoDoDesconto(TipoDoDesconto.FIDELIDADE);
       this.setDesconto(new BigDecimal("0.05"));
+
       BigDecimal totalDoDesconto = this.getTotalDePedido().multiply(this.getDesconto());
       BigDecimal novoValorDoPedido = this.getTotalDePedido().subtract(totalDoDesconto);
+
       this.setTotalDePedido(novoValorDoPedido);
+
+      BigDecimal total = this.getTotalDeDescontos().add(totalDoDesconto);
+      this.setTotalDeDescontos(total);
       
     } else {
       this.setTipoDoDesconto(TipoDoDesconto.NENHUM);
     }
+  }
+
+  public BigDecimal calcularTotalDeDescontosDoPedido() {
+    this.setCalcularTotalDeDescontos(this.getTotalDeDescontos());
+
+    this.itensDePedido.forEach(item -> {
+      BigDecimal total = this.getTotalDeDescontos().add(item.getTotalDeDescontos());
+      this.setTotalDeDescontos(total);
+    });
+
+    return this.getTotalDeDescontos();
   }
 
   @Override

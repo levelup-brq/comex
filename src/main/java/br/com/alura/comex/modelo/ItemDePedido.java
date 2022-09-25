@@ -34,11 +34,14 @@ public class ItemDePedido {
   private PedidoDoCliente pedido;
 
   @Column(nullable = true)
-  private BigDecimal desconto;
+  private BigDecimal desconto = BigDecimal.ZERO;
 
   @Column(nullable = false)
   @Enumerated(EnumType.STRING)
   private TipoDescontoItemPedido tipoDescontoItemPedido;
+
+  @Column(nullable = true)
+  private BigDecimal totalDeDescontos = BigDecimal.ZERO;
 
   public ItemDePedido(
       BigDecimal precoUnitario, 
@@ -50,6 +53,8 @@ public class ItemDePedido {
 
     this.aplicarDescontoPorQuantidade();
   }
+
+  public ItemDePedido() {}
 
   public Long getId() {
     return id;
@@ -96,24 +101,40 @@ public class ItemDePedido {
   }
 
   private void calcularDesconto() {
-    BigDecimal valorDoDesconto = this.getPrecoUnitario()
-      .multiply(this.getDesconto());
+    this.setDesconto(new BigDecimal("0.10"));
+    BigDecimal valorDoDesconto = this.getPrecoUnitario().multiply(this.getDesconto());
       
     BigDecimal novoPrecoDoProduto = this.getPrecoUnitario()
       .subtract(valorDoDesconto)
       .setScale(2, RoundingMode.HALF_EVEN);
+
+    this.somarDesconto(valorDoDesconto);
     
     this.setPrecoUnitario(novoPrecoDoProduto);
+  }
+
+  private void somarDesconto(BigDecimal valorDoDesconto) {
+    BigDecimal total = this.getTotalDeDescontos()
+      .add(valorDoDesconto)
+      .multiply(new BigDecimal(this.getQuantidade()));
+
+    this.setTotalDeDescontos(total);
+  }
+
+  public BigDecimal getTotalDeDescontos() {
+    return this.totalDeDescontos;
+  }
+
+  public void setTotalDeDescontos(BigDecimal totalDeDescontos) {
+    this.totalDeDescontos = totalDeDescontos;
   }
 
   private void aplicarDescontoPorQuantidade() {
     if (this.getQuantidade() >= 10) {
       this.setTipoDescontoItemPedido(TipoDescontoItemPedido.QUANTIDADE);
-      this.setDesconto(new BigDecimal(0.10));
       this.calcularDesconto();
     } else {
       this.setTipoDescontoItemPedido(TipoDescontoItemPedido.NENHUM);
     }
   }
-
 }

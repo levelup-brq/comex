@@ -47,36 +47,6 @@ public class PedidoForm {
     );
 
     return casosDeUsoPedido.criaPedidoDoCliente(this.getItensDoPedido(), getClienteId());
-
-    //Cliente cliente = clienteRepository
-    //  .findById(this.getClienteId())
-    //  .orElse(null);
-    
-    // TotalDePedidoPorCliente totalDePedidos = pedidoDoClienteRepository.totalDePedidosPorCliente();
-    // PedidoDoCliente pedidoDoCliente = new PedidoDoCliente(cliente);
-    
-    /* 
-    getItensDoPedido().forEach(item -> {
-
-      Produto produto = produtoRepository
-        .findById(item.getProdutoId())
-        .orElse(null);
-      
-      if (produto.getQuantidadeEmEstoque() >= 1) {
-        ItemDePedido itemDePedido = new ItemDePedido(
-        produto.getPrecoUnitario(), 
-        item.getQuantidade(), 
-        produto);
-
-        pedidoDoCliente.adicionaPedido(itemDePedido);
-      }
-    });
-    */
-
-    // pedidoDoCliente.calcularValorTotalDoPedido();
-    // pedidoDoCliente.aplicarDescontoPorQuantidadeDePedidos(totalDePedidos.getTotalDePedidos());
-
-    // return pedidoDoCliente; 
   }
 
 }

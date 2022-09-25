@@ -1,25 +1,60 @@
 package br.com.alura.comex.controller.dto;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
+
+import br.com.alura.comex.modelo.Cliente;
+import br.com.alura.comex.modelo.ItemDePedido;
+import br.com.alura.comex.modelo.PedidoDoCliente;
 
 public class PedidoDTO {
 
-  private Long clienteId;
-  private List<ItemDoPedidoDTO> itensDoPedido;
+  private ClientePedidoDTO cliente;
+  private LocalDate data;
+  private BigDecimal valorTotalDoPedido;
+  private BigDecimal desconto;
+  private List<ListaDeItemDTO> listaDeItens;
 
 
-  public Long getClienteId() {
-    return clienteId;
-  }
-  public void setClienteId(Long clienteId) {
-    this.clienteId = clienteId;
-  }
-  public List<ItemDoPedidoDTO> getItensDoPedido() {
-    return itensDoPedido;
-  }
-  public void setItensDoPedido(List<ItemDoPedidoDTO> itensDoPedido) {
-    this.itensDoPedido = itensDoPedido;
+  PedidoDTO(PedidoDoCliente pedido) {
+    this.setCliente(pedido.getCliente());
+    this.setListDeItens(pedido.getItensDoPedido());
+    this.data = pedido.getDate();
+    this.valorTotalDoPedido = pedido.getValorTotalDoPedido();
+    this.desconto = pedido.calcularTotalDeDescontosDoPedido();
   }
 
+  public void setCliente(Cliente cliente) {
+    this.cliente = ClientePedidoDTO.converter(cliente);
+  }
+
+  public ClientePedidoDTO getCliente() {
+    return this.cliente;
+  }
+
+  public void setListDeItens(List<ItemDePedido> itensDePedidos) {
+    this.listaDeItens = ListaDeItemDTO.converter(itensDePedidos);
+  }
+
+  public List<ListaDeItemDTO> getListDeItens() {
+    return this.listaDeItens;
+  }
+
+  public BigDecimal getValorTotalDoPedido() {
+    return valorTotalDoPedido;
+  }
+
+  public LocalDate getData() {
+    return data;
+  }
+
+  public BigDecimal getDesconto() {
+    return desconto;
+  }
+
+  public static PedidoDTO converter(PedidoDoCliente pedido) {
+    return new PedidoDTO(pedido);
+  }
   
 }

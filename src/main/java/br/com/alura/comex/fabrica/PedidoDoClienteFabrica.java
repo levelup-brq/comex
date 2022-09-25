@@ -34,26 +34,25 @@ public class PedidoDoClienteFabrica {
       .orElse(null);
     
     TotalDePedidoPorCliente totalDePedidos = pedidoDoClienteRepository.totalDePedidosPorCliente();
+
     PedidoDoCliente pedidoDoCliente = new PedidoDoCliente(cliente);
-    
     itensDoPedido.forEach(item -> {
-      Produto produto = produtoRepository
-        .findById(item.getProdutoId())
-        .orElse(null);
+      Produto produto = produtoRepository.findById(item.getProdutoId()).orElse(null);
       
       if (produto.getQuantidadeEmEstoque() >= 1) {
         ItemDePedido itemDePedido = new ItemDePedido(
-        produto.getPrecoUnitario(), 
-        item.getQuantidade(), 
-        produto);
+          produto.getPrecoUnitario(), 
+          item.getQuantidade(), 
+          produto);
 
         pedidoDoCliente.adicionaPedido(itemDePedido);
       }
+      
     });
 
     pedidoDoCliente.calcularValorTotalDoPedido();
-    pedidoDoCliente.aplicarDescontoPorQuantidadeDePedidos(totalDePedidos.getTotalDePedidos());
-
+    pedidoDoCliente.aplicarDescontoPorQuantidadeDePedidos(totalDePedidos);
+    
     return pedidoDoCliente; 
   } 
 }

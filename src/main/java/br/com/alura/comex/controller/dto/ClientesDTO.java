@@ -54,4 +54,8 @@ public class ClientesDTO {
       .collect(Collectors.toList());
   }
 
+  public static ClientesDTO converter(Cliente cliente) {
+    return new ClientesDTO(cliente);
+  }
+
 }
