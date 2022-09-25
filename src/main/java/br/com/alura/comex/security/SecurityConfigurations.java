@@ -51,6 +51,7 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
     .antMatchers(HttpMethod.GET, "/api/produtos").permitAll()
 		.antMatchers(HttpMethod.POST, "/api/auth").permitAll()
     .antMatchers(HttpMethod.GET, "/swagger-ui/*").permitAll()
+    .antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
 		.anyRequest().authenticated()
 		.and().csrf().disable()
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
