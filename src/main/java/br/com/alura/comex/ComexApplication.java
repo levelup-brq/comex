@@ -76,7 +76,7 @@ public class ComexApplication implements CommandLineRunner {
     private void alterarClienteParaSuspenso() {
 
         Cliente cliente = clienteRepository.findById(2L).orElse(null);
-        cliente.setStatus(Status.SUSPENSO);
+        cliente.setStatus(Status.INATIVO);
         clienteRepository.save(cliente);
     }
 
@@ -147,7 +147,7 @@ public class ComexApplication implements CommandLineRunner {
         clienteRepository.save(cliente3);
     }
 
-//    private void cadastraTresCategoriasAtivas() {
+//    private void cadastrar3Categorias() {
 //        System.out.println("Categorias cadastradas \n ");
 //
 //        Categoria informatica = new Categoria();
@@ -167,8 +167,8 @@ public class ComexApplication implements CommandLineRunner {
 //        categoriaRepository.save(livros);
 //        categoriaRepository.save(moveis);
 //    }
-
-//    private void alteraCategoriaParaInativa() {
+//
+//    private void alterarCategoriaParaInativo() {
 //        System.out.println("Status Categoria alterado \n ");
 //
 //        Categoria categoria = categoriaRepository.findById(2L).orElse(null);
@@ -201,7 +201,6 @@ public class ComexApplication implements CommandLineRunner {
 //        System.out.println("\n");
 //    }
 //
-
 //    private void listaTodasAsCategoriasAtivas() {
 //        System.out.println("Categorias ativas \n ");
 //
@@ -211,5 +210,4 @@ public class ComexApplication implements CommandLineRunner {
 //
 //        System.out.println("\n");
 //    }
-
 }

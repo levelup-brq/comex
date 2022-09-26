@@ -12,17 +12,14 @@ public class ClienteForm {
 
     @NotNull
     @NotEmpty
-    @Length(min = 5)
     private String nome;
 
     @NotNull
     @NotEmpty
-    @Length(min = 11)
     private String cpf;
 
     @NotNull
     @NotEmpty
-    @Length(min = 8)
     private String telefone;
 
     @NotNull

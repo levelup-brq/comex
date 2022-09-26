@@ -10,7 +10,7 @@ public class ClienteDto {
     private String nome;
     private String cpf;
     private String email;
-    private String local;
+    private String endereco;
     private String status;
 
     public ClienteDto(Cliente cliente) {
@@ -18,7 +18,7 @@ public class ClienteDto {
         this.nome = cliente.getNome();
         this.cpf = cliente.getCpf();
         this.email = cliente.getEmail();
-        this.local = cliente.getEndereco().getCidade() + "/" + cliente.getEndereco().getEstado();
+        this.endereco = cliente.getEndereco().getCidade() + "/" + cliente.getEndereco().getEstado();
         this.status = cliente.getStatus().toString();
     }
 
@@ -54,12 +54,12 @@ public class ClienteDto {
         this.email = email;
     }
 
-    public String getLocal() {
-        return local;
+    public String getEndereco() {
+        return endereco;
     }
 
-    public void setLocal(String local) {
-        this.local = local;
+    public void setLocal(String endereco) {
+        this.endereco = endereco;
     }
 
     public String getStatus() {
