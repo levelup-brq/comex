@@ -1,16 +1,20 @@
-package br.com.alura.comex;
-
+package br.com.alura.comex.modelo;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class Pedido {
+import com.thoughtworks.xstream.annotations.XStreamAlias;
 
-  private String categoria;
-  private String produto;
-  private String cliente;
 
-  private BigDecimal preco;
-  private int quantidade;
+
+@XStreamAlias("pedido")
+public class Pedido implements Comparable<Pedido>{
+	
+	private String categoria;
+	private String produto;
+	private String cliente;
+
+	private BigDecimal preco;
+	private int quantidade;
 
   private LocalDate data;
 
@@ -57,6 +61,11 @@ public class Pedido {
         ", quantidade=" + quantidade +
         ", data=" + data +
         '}';
-  }
+  	}
+
+	@Override
+	public int compareTo(Pedido pedido) {
+		return this.cliente.compareTo(pedido.getCliente());
+	}
 
 }
