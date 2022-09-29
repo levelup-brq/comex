@@ -23,11 +23,10 @@ public interface PedidoDoClienteRepository extends CrudRepository<PedidoDoClient
     + "GROUP BY pedido.cliente_id", nativeQuery = true)
   public List<GastoTotalDePedidoPorCliente> gastoTotalDePedidosPorCliente();
 
-  @Query(value = "SELECT COUNT(pedido.cliente_id) AS totalDePedido "
-    + "FROM pedidos AS pedido " 
-    + "JOIN clientes AS cliente " 
-    + "WHERE cliente.id = pedido.cliente_id "
-    + "GROUP BY pedido.cliente_id", nativeQuery = true)
-  public TotalDePedidoPorCliente totalDePedidosPorCliente();
+  @Query(value = "SELECT COUNT(pedido.cliente.id) AS totalDePedido "
+    + "FROM PedidoDoCliente pedido " 
+    + "WHERE pedido.cliente.id = :id "
+    + "GROUP BY pedido.cliente.id")
+  public TotalDePedidoPorCliente totalDePedidosPorCliente(Long id);
 
 }

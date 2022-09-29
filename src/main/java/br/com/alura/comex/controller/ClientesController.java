@@ -31,7 +31,7 @@ public class ClientesController {
   private UsuarioRepository usuarioRepository;
 
   @GetMapping
-  @Cacheable(value = "listaDeClientes")
+  @Cacheable("listaDeClientes")
   public List<ClientesDTO> lista() {
     List<Cliente> clientes = this.clienteRepository.findAll();
     return ClientesDTO.converter(clientes);

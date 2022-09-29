@@ -137,4 +137,8 @@ public class ItemDePedido {
       this.setTipoDescontoItemPedido(TipoDescontoItemPedido.NENHUM);
     }
   }
+
+  public BigDecimal calcularValorPagoNoAtoDaCompra() {
+    return this.getPrecoUnitario().multiply(new BigDecimal(this.getQuantidade()));
+  }
 }

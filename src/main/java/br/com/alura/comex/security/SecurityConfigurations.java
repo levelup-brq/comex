@@ -7,11 +7,11 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import br.com.alura.comex.controller.AutenticacaoViaTokenFilter;
@@ -19,7 +19,7 @@ import br.com.alura.comex.repository.UsuarioRepository;
 
 @EnableWebSecurity
 @Configuration
-public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
+public class SecurityConfigurations {
   
   @Autowired
   private AtenticacaoService autenticacaoService;
@@ -30,39 +30,38 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
   @Autowired
   private UsuarioRepository usuarioRepository;
 
-  
-  @Override
+  // Configurações de autenticação
+	@Bean
+	public AuthenticationManager authenticationManagerBean(HttpSecurity http) throws Exception {
+		AuthenticationManagerBuilder auth = http
+				.getSharedObject(AuthenticationManagerBuilder.class);
+		auth.userDetailsService(autenticacaoService).passwordEncoder(new BCryptPasswordEncoder());
+		return auth.build();
+	}
+
+
   @Bean
-  protected AuthenticationManager authenticationManager() throws Exception {
-    return super.authenticationManager();
-  }
-  
-
-  // Configurar parte de autenticaçao
-  @Override
-  protected void configure(AuthenticationManagerBuilder auth) throws Exception { 
-    auth.userDetailsService(autenticacaoService).passwordEncoder(new BCryptPasswordEncoder());
-  }
-
-  @Override
-  protected void configure(HttpSecurity http) throws Exception {
+  protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http.authorizeRequests()
     .antMatchers(HttpMethod.GET, "/api/categorias").permitAll()
-    .antMatchers(HttpMethod.GET, "/api/produtos").permitAll()
+    .antMatchers(HttpMethod.GET, "/api/produtos/**").permitAll()
 		.antMatchers(HttpMethod.POST, "/api/auth").permitAll()
     .antMatchers(HttpMethod.GET, "/swagger-ui/*").permitAll()
     .antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
-		.anyRequest().authenticated()
-		.and().csrf().disable()
-		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-    .and()
-    .addFilterBefore(new AutenticacaoViaTokenFilter(this.tokenService, this.usuarioRepository), UsernamePasswordAuthenticationFilter.class);
+    .anyRequest().authenticated()
+				//.and().formLogin();
+				.and().csrf().disable()
+				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        .and()
+        .addFilterBefore(new AutenticacaoViaTokenFilter(this.tokenService, this.usuarioRepository), UsernamePasswordAuthenticationFilter.class);
+
+    return http.build();
   }
 
-  //Configuracoes de recursos estaticos como arquivo .css, js etc...
-  @Override
-  public void configure(WebSecurity web) throws Exception {
-    web.ignoring().antMatchers("/**.html", "/v2/api-docs", "/webjars/**","/configuration/**", "/swagger-resources/**");
-  }
-
+  // Configurações de recursos estáticos(js, css, imagens, etc...)
+	@Bean
+	public WebSecurityCustomizer webSecurityCustomizer() {
+		return (web) -> web.ignoring().antMatchers("/**.html", "/v2/api-docs", "/webjars/**", "/configuration/**",
+				"/swagger-resources/**", "/v3/api-docs/**", "/swagger-ui/**");
+	}
 }

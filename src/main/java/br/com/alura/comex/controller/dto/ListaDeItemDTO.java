@@ -80,7 +80,7 @@ public class ListaDeItemDTO {
       item.getProduto().getCategoria().getNome(),
       item.getQuantidade(),
       item.getProduto().getPrecoUnitario(),
-      item.getPrecoUnitario(),
+      item.calcularValorPagoNoAtoDaCompra(),
       item.getDesconto());
       
     }).collect(Collectors.toList());

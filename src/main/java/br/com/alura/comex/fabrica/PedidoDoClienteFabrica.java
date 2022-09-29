@@ -33,7 +33,7 @@ public class PedidoDoClienteFabrica {
       .findById(clienteId)
       .orElse(null);
     
-    TotalDePedidoPorCliente totalDePedidos = pedidoDoClienteRepository.totalDePedidosPorCliente();
+    TotalDePedidoPorCliente totalDePedidos = pedidoDoClienteRepository.totalDePedidosPorCliente(cliente.getId());
 
     PedidoDoCliente pedidoDoCliente = new PedidoDoCliente(cliente);
     itensDoPedido.forEach(item -> {

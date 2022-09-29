@@ -51,6 +51,10 @@ public class Produto {
     return nome;
   }
 
+  public Long getId() {
+		return this.id;
+	}
+
   public BigDecimal getPrecoUnitario() {
     return precoUnitario;
   }
@@ -85,9 +89,5 @@ public class Produto {
       this.getCategoria().getNome(),
       this.getDescricao());
   }
-
-	public Long getId() {
-		return this.id;
-	}
 
 }

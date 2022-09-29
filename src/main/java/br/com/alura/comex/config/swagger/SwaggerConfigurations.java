@@ -48,10 +48,8 @@ public class SwaggerConfigurations {
     return SecurityContext.builder()
       .securityReferences(defaultAuth())
       .operationSelector(selector -> selector.requestMappingPattern()
-        .matches("/api/clientes"))
+        .matches("^(/api/clientes|/api/pedidos)$"))
       .build();
-      
-
   } 
 
   private List<SecurityReference> defaultAuth() { 
