@@ -19,7 +19,7 @@ public class PedidoDTO {
 
   PedidoDTO(PedidoDoCliente pedido) {
     this.setCliente(pedido.getCliente());
-    this.setListDeItens(pedido.getItensDoPedido());
+    this.setListaDeItens(pedido.getItensDoPedido());
     this.data = pedido.getDate();
     this.valorTotalDoPedido = pedido.getValorTotalDoPedido();
     this.desconto = pedido.calcularTotalDeDescontosDoPedido();
@@ -33,11 +33,11 @@ public class PedidoDTO {
     return this.cliente;
   }
 
-  public void setListDeItens(List<ItemDePedido> itensDePedidos) {
+  public void setListaDeItens(List<ItemDePedido> itensDePedidos) {
     this.listaDeItens = ListaDeItemDTO.converter(itensDePedidos);
   }
 
-  public List<ListaDeItemDTO> getListDeItens() {
+  public List<ListaDeItemDTO> getListaDeItens() {
     return this.listaDeItens;
   }
 

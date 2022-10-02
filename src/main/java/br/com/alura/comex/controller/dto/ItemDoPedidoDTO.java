@@ -18,4 +18,8 @@ public class ItemDoPedidoDTO {
     return produtoId;
   }
   
+  // @Override
+  // public String toString() {
+  //   return String.format("quantidade: %s, produtoId:%s", this.getQuantidade(), this.getProdutoId());
+  // }
 }

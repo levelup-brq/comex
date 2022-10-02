@@ -8,6 +8,8 @@ import br.com.alura.comex.modelo.StatusCategoria;
 
 public class CategoriaDTO {
 
+  public CategoriaDTO() {}
+
   CategoriaDTO(Categoria categoria) {
     this.id = categoria.getId();
     this.nome = categoria.getNome();

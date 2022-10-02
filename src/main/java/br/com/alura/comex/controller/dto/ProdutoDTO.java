@@ -22,6 +22,8 @@ public class ProdutoDTO {
 
   private Long categoriaId;
 
+  public ProdutoDTO() {}
+
   ProdutoDTO(Produto produto) {
     this.id = produto.getId();
     this.nome = produto.getNome();

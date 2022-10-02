@@ -24,6 +24,8 @@ public class ClientesDTO {
     this.local = cliente.getEndereco().local();
   }
 
+  public ClientesDTO() {}
+
   public Long getId() {
     return id;
   }
