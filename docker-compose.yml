@@ -1,0 +1,50 @@
+version: '3'
+services: 
+
+  comexdatabase:
+    image: mariadb
+    container_name: comex2
+    restart: always
+    environment: 
+      POSTGRES_PASSWORD: 123456
+      MARIADB_USER: root
+      MARIADB_ROOT_PASSWORD: 123456
+      MARIADB_DATABASE: comex
+
+    ports: 
+      - "3306:3306"
+    expose:
+      - "3306"
+    # volumes: 
+    #   - "/home/jonas/db:/var/lib/mariadb/data"
+    networks: 
+      - comex-networks
+
+  comexapp:
+    build: 
+      dockerfile: Dockerfile
+      context: .
+    environment: 
+      COMEX_DATABASE_URL: jdbc:mariadb://comexdatabase:3306/comex
+      COMEX_DATABASE_USERNAME: root
+      COMEX_DATABASE_PASSWORD: 123456
+      COMEX_DATABASE_DRIVER: org.mariadb.jdbc.Driver
+      COMEX_JWT_SECRET: 123456
+      SPRING_PROFILES_ACTIVE: prod
+      USERNAME: root
+    image: alura/comex
+    container_name: comex-app
+    # volumes: 
+    #   - /home/jonas/developer/comex:/home/jonas/developer
+    ports: 
+      - "8080:8080"
+    expose:
+      - "8080"
+    networks: 
+      - comex-networks
+    depends_on: 
+      - "comexdatabase"
+
+networks: 
+  comex-networks:
+    driver: bridge
