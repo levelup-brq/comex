@@ -3,6 +3,7 @@ package br.com.alura.comex.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -19,6 +20,7 @@ import br.com.alura.comex.repository.UsuarioRepository;
 
 @EnableWebSecurity
 @Configuration
+@Profile(value={"prod", "dev"})
 public class SecurityConfigurations {
   
   @Autowired
@@ -49,11 +51,10 @@ public class SecurityConfigurations {
     .antMatchers(HttpMethod.GET, "/swagger-ui/*").permitAll()
     .antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
     .anyRequest().authenticated()
-				//.and().formLogin();
-				.and().csrf().disable()
-				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        .and()
-        .addFilterBefore(new AutenticacaoViaTokenFilter(this.tokenService, this.usuarioRepository), UsernamePasswordAuthenticationFilter.class);
+			.and().csrf().disable()
+			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+      .and()
+      .addFilterBefore(new AutenticacaoViaTokenFilter(this.tokenService, this.usuarioRepository), UsernamePasswordAuthenticationFilter.class);
 
     return http.build();
   }
